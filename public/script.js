@@ -1928,7 +1928,7 @@ export function addCopyToCodeBlocks(messageElement) {
             e.stopPropagation();
         });
         copyButton.addEventListener('pointerup', async function () {
-            const text = codeBlocks.get(i).innerText;
+            const text = codeBlocks.get(i).textContent;
             await copyText(text);
             toastr.info(t`Copied!`, '', { timeOut: 2000 });
         });
