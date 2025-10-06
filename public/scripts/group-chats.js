@@ -2018,7 +2018,14 @@ export async function deleteGroupChatByName(groupId, chatName) {
     await eventSource.emit(event_types.GROUP_CHAT_DELETED, chatName);
 }
 
-export async function deleteGroupChat(groupId, chatId) {
+/**
+ * Deletes a group chat by name.
+ * @param {string} groupId The ID of the group containing the chat to delete.
+ * @param {string} chatId The id/name of the chat to delete.
+ * @param {object} [options={}] Options for the deletion.
+ * @param {boolean} [options.jumpToNewChat=true] Whether to jump to a new chat after deletion (existing one, or create a new one if none exists)
+ */
+export async function deleteGroupChat(groupId, chatId, { jumpToNewChat = true } = {}) {
     const group = groups.find(x => x.id === groupId);
 
     if (!group || !group.chats.includes(chatId)) {
@@ -2026,10 +2033,13 @@ export async function deleteGroupChat(groupId, chatId) {
     }
 
     group.chats.splice(group.chats.indexOf(chatId), 1);
-    group.chat_metadata = {};
-    group.chat_id = '';
     delete group.past_metadata[chatId];
-    updateChatMetadata(group.chat_metadata, true);
+
+    if (group.chat_id === chatId) {
+        group.chat_id = '';
+        group.chat_metadata = {};
+        updateChatMetadata(group.chat_metadata, true);
+    }
 
     const response = await fetch('/api/chats/group/delete', {
         method: 'POST',
@@ -2038,10 +2048,12 @@ export async function deleteGroupChat(groupId, chatId) {
     });
 
     if (response.ok) {
-        if (group.chats.length) {
-            await openGroupChat(groupId, group.chats[group.chats.length - 1]);
-        } else {
-            await createNewGroupChat(groupId);
+        if (jumpToNewChat) {
+            if (group.chats.length) {
+                await openGroupChat(groupId, group.chats[group.chats.length - 1]);
+            } else {
+                await createNewGroupChat(groupId);
+            }
         }
 
         await eventSource.emit(event_types.GROUP_CHAT_DELETED, chatId);
