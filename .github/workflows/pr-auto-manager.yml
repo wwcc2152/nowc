@@ -28,7 +28,7 @@ jobs:
         id: app
         with:
           app-id: ${{ vars.ST_BOT_APP_ID }}
-          private-key: ${{ secrets.ST_BOT_SECRET }}
+          private-key: ${{ secrets.ST_BOT_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
 
   run-eslint:
