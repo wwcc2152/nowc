@@ -8,6 +8,56 @@ export {
 };
 
 /**
+ * @enum {number} Regex scripts types
+ */
+export const SCRIPT_TYPES = {
+    GLOBAL: 0,
+    SCOPED: 1,
+};
+
+/**
+ * @typedef {import('../../char-data.js').RegexScriptData} RegexScript
+ */
+
+/**
+ * @typedef {object} GetRegexScriptsOptions
+ * @property {boolean} allowedOnly only return allowed scripts
+ */
+const DEFAULT_GET_REGEX_SCRIPTS_OPTIONS = { allowedOnly: false };
+
+/**
+ * Retrieves the list of regex scripts by combining the scripts from the extension settings and the character data
+ *
+ * @param {GetRegexScriptsOptions} option
+ * @returns {RegexScript[]} An array of regex scripts, where each script is an object containing the necessary information.
+ */
+export function getRegexScripts(option = DEFAULT_GET_REGEX_SCRIPTS_OPTIONS) {
+    return [...Object.values(SCRIPT_TYPES).flatMap(type => getScriptsByType(type, option))];
+}
+
+/**
+ * Retrieves the regex scripts for a specific type.
+ * @param {SCRIPT_TYPES} scriptType
+ * @param {GetRegexScriptsOptions} option
+ * @returns {RegexScript[]} An array of regex scripts for the specified type.
+ */
+export function getScriptsByType(scriptType, { allowedOnly } = DEFAULT_GET_REGEX_SCRIPTS_OPTIONS) {
+    switch (scriptType) {
+        case SCRIPT_TYPES.GLOBAL:
+            return extension_settings.regex ?? [];
+        case SCRIPT_TYPES.SCOPED: {
+            if (allowedOnly && !extension_settings?.character_allowed_regex?.includes(characters?.[this_chid]?.avatar)) {
+                return [];
+            }
+            const scopedScripts = characters[this_chid]?.data?.extensions?.regex_scripts;
+            return Array.isArray(scopedScripts) ? scopedScripts : [];
+        }
+        default:
+            return [];
+    }
+}
+
+/**
  * @enum {number} Where the regex script should be applied
  */
 const regex_placement = {
@@ -51,22 +101,6 @@ function sanitizeRegexMacro(x) {
         }) : x;
 }
 
-function getScopedRegex() {
-    const isAllowed = extension_settings?.character_allowed_regex?.includes(characters?.[this_chid]?.avatar);
-
-    if (!isAllowed) {
-        return [];
-    }
-
-    const scripts = characters[this_chid]?.data?.extensions?.regex_scripts;
-
-    if (!Array.isArray(scripts)) {
-        return [];
-    }
-
-    return scripts;
-}
-
 /**
  * Parent function to fetch a regexed version of a raw string
  * @param {string} rawString The raw string to be regexed
@@ -87,7 +121,7 @@ function getRegexedString(rawString, placement, { characterOverride, isMarkdown,
         return finalString;
     }
 
-    const allRegex = [...(extension_settings.regex ?? []), ...(getScopedRegex() ?? [])];
+    const allRegex = getRegexScripts({ allowedOnly: true });
     allRegex.forEach((script) => {
         if (
             // Script applies to Markdown and input is Markdown
@@ -126,7 +160,7 @@ function getRegexedString(rawString, placement, { characterOverride, isMarkdown,
 
 /**
  * Runs the provided regex script on the given string
- * @param {import('./index.js').RegexScript} regexScript The regex script to run
+ * @param {RegexScript} regexScript The regex script to run
  * @param {string} rawString The string to run the regex script on
  * @param {RegexScriptParams} params The parameters to use for the regex script
  * @returns {string} The new string
