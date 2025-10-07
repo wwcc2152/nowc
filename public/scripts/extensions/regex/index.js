@@ -476,10 +476,12 @@ function setToggleAllIcon(allAreChecked) {
     selectAllIcon.toggleClass('fa-minus', allAreChecked);
 }
 
+/**
+ * Sets the visibility of the bulk move buttons based on selected scripts.
+ */
 function setMoveButtonsVisibility() {
     const hasGlobalScripts = $('#saved_regex_scripts .regex-script-label:has(.regex_bulk_checkbox:checked)').length > 0;
-    const hasScopedScripts =
-        $('#saved_scoped_scripts .regex-script-label:has(.regex_bulk_checkbox:checked)').length > 0;
+    const hasScopedScripts = $('#saved_scoped_scripts .regex-script-label:has(.regex_bulk_checkbox:checked)').length > 0;
     $('#bulk_regex_move_to_global').toggle(hasScopedScripts);
     $('#bulk_regex_move_to_scoped').toggle(hasGlobalScripts);
 }
@@ -538,7 +540,7 @@ async function saveRegexScript(regexScript, existingScriptIndex, scriptType, sav
 
         // Reload the current chat to undo previous markdown
         const currentChatId = getCurrentChatId();
-        if (currentChatId !== undefined && currentChatId !== null) {
+        if (currentChatId) {
             await reloadCurrentChat();
         }
     }
@@ -550,10 +552,10 @@ async function saveRegexScript(regexScript, existingScriptIndex, scriptType, sav
 }
 
 /**
- * Delete a regex script
- * @param {string} id
- * @param {SCRIPT_TYPES} scriptType
- * @param {boolean} saveSettings
+ * Delete a regex script by ID
+ * @param {string} id ID of the script to delete
+ * @param {SCRIPT_TYPES} scriptType global? scoped?
+ * @param {boolean} saveSettings Whether to save the settings immediately
  * @returns {Promise<void>}
  */
 async function deleteRegexScript(id, scriptType, saveSettings = true) {
@@ -575,17 +577,21 @@ async function deleteRegexScript(id, scriptType, saveSettings = true) {
 
 /**
  * Move a regex script from one type to another
- * @param {import('../../char-data.js').RegexScriptData} script
- * @param {SCRIPT_TYPES} toType
- * @param {SCRIPT_TYPES|null} fromType
- * @param {boolean} saveSettings
+ * @param {import('../../char-data.js').RegexScriptData} script The script to move
+ * @param {SCRIPT_TYPES} toType Target type
+ * @param {SCRIPT_TYPES|null} fromType Source type, if null it will be determined automatically
+ * @param {boolean} saveSettings Whether to save the settings immediately
  * @returns {Promise<void>}
  */
 async function moveRegexScript(script, toType, fromType = null, saveSettings = true) {
-    if (!fromType) {
+    if (!Object.values(SCRIPT_TYPES).includes(toType)) {
+        console.warn(`moveRegexScript: Invalid target script type ${toType}`);
+        return;
+    }
+    if (!Object.values(SCRIPT_TYPES).includes(fromType)) {
         fromType = getScriptType(script);
     }
-    if (fromType === toType || fromType === -1) {
+    if (fromType === toType || fromType === SCRIPT_TYPES.UNKNOWN || toType === SCRIPT_TYPES.UNKNOWN) {
         return;
     }
     await deleteRegexScript(script.id, fromType, false);
@@ -1234,13 +1240,13 @@ async function onRegexDebuggerOpenClick() {
         });
 
         popupContainer.append(navPanel).append(contentPanel);
-        callGenericPopup(popupContainer, POPUP_TYPE.TEXT, 'Step-by-step Transformation', { wide: true, allowVerticalScrolling: false });
+        callGenericPopup(popupContainer, POPUP_TYPE.TEXT, t`Step-by-step Transformation`, { wide: true, allowVerticalScrolling: false });
     });
 
     debuggerHtml.find('#regex_debugger_expand_final').on('click', function () {
         const content = $('#regex_debugger_final_output').html();
         const popupContent = $('<div class="regex-popup-content"></div>').html(content);
-        callGenericPopup(popupContent, POPUP_TYPE.TEXT, 'Final Output', { wide: true, large: true, allowVerticalScrolling: true });
+        callGenericPopup(popupContent, POPUP_TYPE.TEXT, t`Final Output`, { wide: true, large: true, allowVerticalScrolling: true });
     });
 
     await callGenericPopup(debuggerHtml.children(), POPUP_TYPE.TEXT, '', { wide: true, allowVerticalScrolling: true });
@@ -1465,10 +1471,23 @@ async function onRegexImportFileChange(file, scriptType) {
     }
 }
 
+/**
+ * Determines the type of a given script.
+ * @param {RegexScript} script The script to check
+ * @returns {SCRIPT_TYPES} The script type.
+ */
 function getScriptType(script) {
-    return getScriptsByType(SCRIPT_TYPES.SCOPED).some(s => s.id === script.id)
-        ? SCRIPT_TYPES.SCOPED
-        : SCRIPT_TYPES.GLOBAL;
+    const scopedScripts = getScriptsByType(SCRIPT_TYPES.SCOPED);
+    if (scopedScripts.some(s => s.id === script.id)) {
+        return SCRIPT_TYPES.SCOPED;
+    }
+
+    const globalScripts = getScriptsByType(SCRIPT_TYPES.GLOBAL);
+    if (globalScripts.some(s => s.id === script.id)) {
+        return SCRIPT_TYPES.GLOBAL;
+    }
+
+    return SCRIPT_TYPES.UNKNOWN;
 }
 
 function getSelectedScripts() {
@@ -1591,6 +1610,7 @@ jQuery(async () => {
 
         checkboxes.prop('checked', newState);
         setToggleAllIcon(newState);
+        setMoveButtonsVisibility();
     });
 
     $('#bulk_enable_regex').on('click', async function () {
@@ -1637,12 +1657,26 @@ jQuery(async () => {
 
         // Reload the current chat to undo previous markdown
         const currentChatId = getCurrentChatId();
-        if (currentChatId !== undefined && currentChatId !== null) {
+        if (currentChatId) {
             await reloadCurrentChat();
         }
     }
-    $('#bulk_regex_move_to_global').on('click', () => bulkMoveRegexScript(SCRIPT_TYPES.GLOBAL));
-    $('#bulk_regex_move_to_scoped').on('click', () => bulkMoveRegexScript(SCRIPT_TYPES.SCOPED));
+
+    $('#bulk_regex_move_to_global').on('click', async () => {
+        const confirm = await callGenericPopup(t`Are you sure you want to move the selected regex scripts to global?`, POPUP_TYPE.CONFIRM);
+        if (!confirm) {
+            return;
+        }
+        await bulkMoveRegexScript(SCRIPT_TYPES.GLOBAL);
+    });
+
+    $('#bulk_regex_move_to_scoped').on('click', async () => {
+        const confirm = await callGenericPopup(t`Are you sure you want to move the selected regex scripts to scoped?`, POPUP_TYPE.CONFIRM);
+        if (!confirm) {
+            return;
+        }
+        await bulkMoveRegexScript(SCRIPT_TYPES.SCOPED);
+    });
 
     $('#bulk_delete_regex').on('click', async function () {
         const scripts = getSelectedScripts();
@@ -1650,7 +1684,7 @@ jQuery(async () => {
             toastr.warning(t`No regex scripts selected for deletion.`);
             return;
         }
-        const confirm = await callGenericPopup('Are you sure you want to delete the selected regex scripts?', POPUP_TYPE.CONFIRM);
+        const confirm = await callGenericPopup(t`Are you sure you want to delete the selected regex scripts?`, POPUP_TYPE.CONFIRM);
         if (!confirm) {
             return;
         }
@@ -1750,9 +1784,10 @@ jQuery(async () => {
      * @property {import('../../slash-commands/SlashCommandEnumValue.js').EnumType} color
      * @property {string} icon
      */
+
     /**
-     * @param {SCRIPT_TYPES} type
-     * @returns {ScriptDecorators}
+     * @param {SCRIPT_TYPES} type The script type
+     * @returns {ScriptDecorators} The decorators for the script type
      */
     function getScriptDecorators(type) {
         switch (type) {
@@ -1768,13 +1803,15 @@ jQuery(async () => {
                     color: enumTypes.name,
                     icon: 'S',
                 };
+            default:
+                return {
+                    typename: 'Unknown',
+                    color: enumTypes.variable,
+                    icon: 'Unknown',
+                };
         }
-        return {
-            typename: 'Unknown',
-            color: enumTypes.variable,
-            icon: 'Unknown',
-        };
     }
+
     const localEnumProviders = {
         regexScripts: () =>
             getRegexScripts().map(script => {
