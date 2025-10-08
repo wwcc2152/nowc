@@ -179,7 +179,10 @@ jobs:
 
     steps:
       - name: Mint App Token
+        if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
         id: app
+        # Only run if the PR is from the same repository
+        # This action runs on comments, which will not receive the env vars for this
         # Create a GitHub App token
         # https://github.com/marketplace/actions/create-github-app-token
         uses: actions/create-github-app-token@v2
@@ -189,12 +192,13 @@ jobs:
           owner: ${{ github.repository_owner }}
 
       - name: Remove Stale Label
+        if: always()
         # 🤖 Issues Helper
         # https://github.com/marketplace/actions/issues-helper
         uses: actions-cool/issues-helper@v3.6.0
         with:
           actions: 'remove-labels'
-          token: ${{ steps.app.outputs.token }}
+          token: ${{ steps.app.outputs.token || github.token }} # Use fallback to GITHUB_TOKEN if app token is not available
           issue-number: ${{ github.event.pull_request.number }}
           labels: '⚰️ Stale'
 
