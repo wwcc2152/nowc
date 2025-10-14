@@ -2066,6 +2066,7 @@ export async function deleteGroupChat(groupId, chatId, { jumpToNewChat = true } 
  * @param {FormData} formData Form data to send to the server
  * @param {object} [options={}] Options for the import
  * @param {boolean} [options.refresh] Whether to refresh the group chat list after import
+ * @returns {Promise<string[]>} List of imported file names
  */
 export async function importGroupChat(formData, { refresh = true } = {}) {
     const fetchResult = await fetch('/api/chats/group/import', {
@@ -2089,7 +2090,11 @@ export async function importGroupChat(formData, { refresh = true } = {}) {
                 }
             }
         }
+
+        return data?.fileNames || [];
     }
+
+    return [];
 }
 
 export async function saveGroupBookmarkChat(groupId, name, metadata, mesId) {

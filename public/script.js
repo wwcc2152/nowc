@@ -7360,8 +7360,9 @@ export function getCurrentChatDetails() {
  * The function first fetches the chats, processes them, and then displays them in
  * the HTML. It also has a built-in search functionality that allows filtering the
  * displayed chats based on a search query.
+ * @param {string[]} hightlightNames - An array of chat names to highlight
  */
-export async function displayPastChats() {
+export async function displayPastChats(hightlightNames = []) {
     $('#select_chat_div').empty();
     $('#select_chat_search').val('').off('input');
 
@@ -7370,10 +7371,10 @@ export async function displayPastChats() {
     const displayName = chatDetails.characterName;
     const avatarImg = chatDetails.avatarImgURL;
 
-    await displayChats('', currentChat, displayName, avatarImg, selected_group);
+    await displayChats('', currentChat, displayName, avatarImg, selected_group, hightlightNames);
 
     const debouncedDisplay = debounce((searchQuery) => {
-        displayChats(searchQuery, currentChat, displayName, avatarImg, selected_group);
+        displayChats(searchQuery, currentChat, displayName, avatarImg, selected_group, []);
     });
 
     // Define the search input listener
@@ -7389,7 +7390,7 @@ export async function displayPastChats() {
     }, 200);
 }
 
-async function displayChats(searchQuery, currentChat, displayName, avatarImg, selected_group) {
+async function displayChats(searchQuery, currentChat, displayName, avatarImg, selected_group, highlightNames) {
     try {
         const trimExtension = (fileName) => String(fileName).replace('.jsonl', '');
 
@@ -7429,6 +7430,12 @@ async function displayChats(searchQuery, currentChat, displayName, avatarImg, se
             }
 
             $('#select_chat_div').append(template);
+
+            if (Array.isArray(highlightNames) && highlightNames.includes(chat.file_name)) {
+                const templateOffset = template.offset().top - template.parent().offset().top;
+                $('#select_chat_div').scrollTop(templateOffset);
+                flashHighlight(template, debounce_timeout.extended);
+            }
         }
     } catch (error) {
         console.error('Error loading chats:', error);
@@ -8053,6 +8060,7 @@ export async function saveChatConditional() {
  * @param {FormData} formData Form data to send to the server.
  * @param {object} [options={}] Options for the import
  * @param {boolean} [options.refresh] Whether to refresh the group chat list after import
+ * @returns {Promise<string[]>} List of imported file names.
  */
 async function importCharacterChat(formData, { refresh = true } = {}) {
     const fetchResult = await fetch('/api/chats/import', {
@@ -8067,7 +8075,10 @@ async function importCharacterChat(formData, { refresh = true } = {}) {
         if (data.res && refresh) {
             await displayPastChats();
         }
+        return data?.fileNames || [];
     }
+
+    return [];
 }
 
 function updateViewMessageIds(startFromZero = false) {
@@ -10616,6 +10627,8 @@ jQuery(async function () {
             return;
         }
 
+        const importedFileNames = [];
+
         for (const file of targetElement.files) {
             const ext = file.name.match(/\.(\w+)$/);
             const format = ext?.[1]?.toLowerCase();
@@ -10636,10 +10649,15 @@ jQuery(async function () {
             formData.set('user_name', name1);
 
             const importFn = selected_group ? importGroupChat : importCharacterChat;
-            await importFn(formData, { refresh: false });
+            const result = await importFn(formData, { refresh: false });
+            importedFileNames.push(...result);
         }
 
-        await displayPastChats();
+        if (importedFileNames.length > 0) {
+            toastr.success(t`Successfully imported ${importedFileNames.length} chat(s).`);
+        }
+
+        await displayPastChats(importedFileNames);
 
         targetElement.value = '';
     });
