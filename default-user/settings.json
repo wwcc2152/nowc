@@ -2553,8 +2553,10 @@
         "vectors": {},
         "variables": {
             "global": {
-                "LAST_RECEIVE_TOKENS": 954,
-                "LAST_RECEIVE_CHARS": 1317
+                "LAST_RECEIVE_TOKENS": 4644,
+                "LAST_RECEIVE_CHARS": 8881,
+                "LAST_SEND_TOKENS": 45635,
+                "LAST_SEND_CHARS": 91576
             }
         },
         "attachments": [],
@@ -5813,7 +5815,7 @@
         "azure_deployment_name": "",
         "azure_api_version": "2024-02-15-preview",
         "azure_openai_model": "",
-        "custom_model": "流式抗截断-gemini-2.5-pro-preview-06-05-nothinking",
+        "custom_model": "假流式-gemini-2.5-pro-preview-06-05-nothinking",
         "custom_url": "https://gcli.ggchan.dev/",
         "custom_include_body": "",
         "custom_exclude_body": "",
