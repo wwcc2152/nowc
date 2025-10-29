@@ -10,10 +10,10 @@
         "StoryStringValidationCache": "{\"hashCache\":{\"3090278210222208\":{\"fieldsWarned\":{}}}}"
     },
     "currentVersion": "1.13.5",
-    "username": "王晨",
+    "username": "{{user}}",
     "active_character": "红楼.png",
     "active_group": null,
-    "user_avatar": "1761742441022-.png",
+    "user_avatar": "user-default.png",
     "amount_gen": 350,
     "max_context": 8192,
     "main_api": "openai",
@@ -343,22 +343,13 @@
             "max_additions": 1
         },
         "personas": {
-            "user-default.png": "{{user}}",
-            "1761742441022-.png": "王晨"
+            "user-default.png": "{{user}}"
         },
         "default_persona": null,
         "persona_descriptions": {
             "user-default.png": {
                 "description": "",
                 "position": 0
-            },
-            "1761742441022-.png": {
-                "description": "",
-                "position": 0,
-                "depth": 2,
-                "role": 0,
-                "lorebook": "",
-                "title": ""
             }
         },
         "persona_description": "",
@@ -2322,6 +2313,25 @@
                 "maxDepth": 0,
                 "markdownOnly": false,
                 "promptOnly": true
+            },
+            {
+                "id": "a8ff1bc7-15f2-4122-b43b-ded692560538",
+                "scriptName": "​a8ff1bc7-15f2-4122-b43b-ded692560538",
+                "findRegex": "/<%(?![%])([\\s\\S]*?)(?<!%)%>/g",
+                "replaceString": "",
+                "trimStrings": [],
+                "placement": [
+                    1,
+                    2,
+                    6
+                ],
+                "disabled": false,
+                "markdownOnly": false,
+                "promptOnly": true,
+                "runOnEdit": false,
+                "substituteRegex": 0,
+                "minDepth": null,
+                "maxDepth": null
             }
         ],
         "regex_presets": [
@@ -2563,10 +2573,10 @@
         "vectors": {},
         "variables": {
             "global": {
-                "LAST_RECEIVE_TOKENS": 5304,
-                "LAST_RECEIVE_CHARS": 9881,
-                "LAST_SEND_TOKENS": 55507,
-                "LAST_SEND_CHARS": 104422
+                "LAST_RECEIVE_TOKENS": 37,
+                "LAST_RECEIVE_CHARS": 50,
+                "LAST_SEND_TOKENS": 46862,
+                "LAST_SEND_CHARS": 92682
             }
         },
         "attachments": [],

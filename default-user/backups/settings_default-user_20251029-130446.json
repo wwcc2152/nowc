@@ -2322,6 +2322,25 @@
                 "maxDepth": 0,
                 "markdownOnly": false,
                 "promptOnly": true
+            },
+            {
+                "id": "a8ff1bc7-15f2-4122-b43b-ded692560538",
+                "scriptName": "​a8ff1bc7-15f2-4122-b43b-ded692560538",
+                "findRegex": "/<%(?![%])([\\s\\S]*?)(?<!%)%>/g",
+                "replaceString": "",
+                "trimStrings": [],
+                "placement": [
+                    1,
+                    2,
+                    6
+                ],
+                "disabled": false,
+                "markdownOnly": false,
+                "promptOnly": true,
+                "runOnEdit": false,
+                "substituteRegex": 0,
+                "minDepth": null,
+                "maxDepth": null
             }
         ],
         "regex_presets": [
@@ -2563,10 +2582,10 @@
         "vectors": {},
         "variables": {
             "global": {
-                "LAST_RECEIVE_TOKENS": 5304,
-                "LAST_RECEIVE_CHARS": 9881,
-                "LAST_SEND_TOKENS": 55507,
-                "LAST_SEND_CHARS": 104422
+                "LAST_RECEIVE_TOKENS": 94,
+                "LAST_RECEIVE_CHARS": 120,
+                "LAST_SEND_TOKENS": 52650,
+                "LAST_SEND_CHARS": 100143
             }
         },
         "attachments": [],
