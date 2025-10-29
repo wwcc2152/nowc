@@ -3,16 +3,10 @@
     "accountStorage": {
         "__migrated": "1",
         "LNavOpened": "true",
-        "NavOpened": "true",
-        "WINavOpened": "true",
-        "AlertWI_红楼.png": "true",
-        "AlertRegex_红楼.png": "true",
-        "StoryStringValidationCache": "{\"hashCache\":{\"3090278210222208\":{\"fieldsWarned\":{}}}}"
+        "NavOpened": "false"
     },
     "currentVersion": "1.13.5",
     "username": "{{user}}",
-    "active_character": "红楼.png",
-    "active_group": null,
     "user_avatar": "user-default.png",
     "amount_gen": 350,
     "max_context": 8192,
@@ -391,7 +385,7 @@
         "show_swipe_num_all_messages": false,
         "auto_connect": false,
         "auto_load_chat": false,
-        "forbid_external_media": false,
+        "forbid_external_media": true,
         "external_media_allowed_overrides": [],
         "external_media_forbidden_overrides": [],
         "pin_styles": true,
@@ -401,8 +395,7 @@
         "selectSamplers": {
             "forceHidden": [],
             "forceShown": []
-        },
-        "wi_key_input_plaintext": true
+        }
     },
     "extension_settings": {
         "apiUrl": "http://localhost:5100",
@@ -494,295 +487,10 @@
             "profiles": []
         },
         "dice": {},
-        "regex": [
-            {
-                "id": "26da714f-04fc-4f3a-8d09-8cdd2f964346",
-                "scriptName": "［Phantasm］11.(浅色美化)可点击选项",
-                "disabled": true,
-                "runOnEdit": true,
-                "findRegex": "/<choice>\\s*①(.*?)\\s*②(.*?)\\s*③(.*?)\\s*④(.*?)\\s*⑤(.*?)\\s*<\\/choice>/gs",
-                "replaceString": "```\n<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>SillyTavern Choice Menu</title>\n  <style>\n    /* 引入字体 */\n    @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap');\n\n    /* 选择框容器 */\n    .choice-container {\n      position: relative;\n      width: 100%;\n      max-width: 500px;\n      margin: 20px auto;\n      font-family: 'M PLUS Rounded 1c', 'Noto Sans SC', sans-serif;\n      color: #5A8AB0; /* 稍深的蓝色文字 */\n    }\n\n    /* 切换按钮 */\n    .choice-toggle {\n      background: #F5F5F5; /* 灰白背景 */\n      border: 2px solid #8AB4D6; /* 稍深的浅蓝边框 */\n      padding: 14px 20px;\n      border-radius: 20px;\n      text-align: center;\n      cursor: pointer;\n      font-size: 16px;\n      font-weight: 600;\n      color: #5A8AB0; /* 稍深的蓝色文字 */\n      transition: all 0.3s ease;\n      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);\n      position: relative;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n\n    .choice-toggle:hover {\n      background: #E0E7EF; /* 灰蓝hover效果 */\n      transform: scale(1.05) translateY(-3px);\n    }\n\n    .choice-toggle::before,\n    .choice-toggle::after {\n      content: '🎐';\n      font-size: 14px;\n      color: #8AB4D6;\n      position: absolute;\n      top: 50%;\n      transform: translateY(-50%);\n    }\n\n    .choice-toggle::before {\n      left: 20px; /* 靠近文本 */\n    }\n\n    .choice-toggle::after {\n      right: 20px; /* 靠近文本 */\n    }\n\n    /* 菜单容器 */\n    .choice-menu {\n      display: none;\n      background: linear-gradient(to bottom, #F5F5F5, #E1ECF5); /* 灰白渐变 */\n      border: 2px solid #8AB4D6; /* 稍深的浅蓝边框 */\n      border-radius: 16px;\n      margin-top: 10px;\n      padding: 12px 12px 20px 12px; /* 底部增加空间 */\n      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);\n      animation: bounceIn 0.4s ease-out;\n      position: relative; /* 为爱心定位 */\n    }\n\n    /* 菜单下方的爱心 */\n    .choice-menu::before {\n      content: '♥';\n      position: absolute;\n      bottom: 3px; /* 拉开距离 */\n      left: 50%;\n      transform: translateX(-50%);\n      font-size: 15px;\n      color: #8AB4D6;\n      animation: heartFlash 1.2s infinite;\n      z-index: 10; /* 确保不被覆盖 */\n    }\n\n    /* 菜单展开动画 */\n    @keyframes bounceIn {\n      0% {\n        opacity: 0;\n        transform: scale(0.8) translateY(-20px);\n      }\n      60% {\n        transform: scale(1.05);\n      }\n      100% {\n        opacity: 1;\n        transform: scale(1) translateY(0);\n      }\n    }\n\n    /* 菜单项 */\n    .choice-item {\n      padding: 12px 20px 12px 14px;\n      margin: 6px 0;\n      background: #F5F5F5; /* 灰白背景 */\n      border: 1px solid #8AB4D6; /* 稍深的浅蓝边框 */\n      border-radius: 12px;\n      cursor: pointer;\n      font-size: 16px;\n      font-weight: 500;\n      color: #5A8AB0; /* 稍深的蓝色文字 */\n      transition: all 0.3s ease;\n      position: relative;\n    }\n\n    .choice-item:hover {\n      background: #E0E7EF; /* 灰蓝hover效果 */\n      border-color: #5A8AB0; /* 更深的蓝色边框 */\n      transform: translateX(8px) scale(1.03);\n    }\n\n    /* 爱心闪烁变色动画 */\n    @keyframes heartFlash {\n      0%, 100% {\n        color: #8AB4D6;\n      }\n      50% {\n        color: #4A7A9C; /* 更深的蓝色，增加对比 */\n      }\n    }\n\n    /* 响应式设计 */\n    @media (max-width: 600px) {\n      .choice-container {\n        max-width: 90%;\n      }\n\n      .choice-toggle {\n        font-size: 14px;\n        padding: 12px 15px;\n      }\n\n      .choice-item {\n        font-size: 13px;\n        padding: 10px 15px;\n      }\n\n      .choice-toggle::before,\n      .choice-toggle::after,\n      .choice-menu::before {\n        font-size: 12px;\n      }\n\n      .choice-toggle::before {\n        left: 15px;\n      }\n\n      .choice-toggle::after {\n        right: 15px;\n      }\n\n      .choice-menu::before {\n        bottom: 4px; /* 移动端调整爱心位置 */\n      }\n    }\n\n    /* 菜单展开时的样式 */\n    .choice-menu.active {\n      display: block;\n    }\n  </style>\n</head>\n<body>\n  <!-- SillyTavern 将替换 <choice> 为以下结构，$1 到 $5 为外部正则捕获内容 -->\n  <div class=\"choice-container\">\n    <div class=\"choice-toggle\">选择你的行动吧~♫</div>\n    <div class=\"choice-menu\">\n      <div class=\"choice-item\" data-choice=\"$1\">$1</div>\n      <div class=\"choice-item\" data-choice=\"$2\">$2</div>\n      <div class=\"choice-item\" data-choice=\"$3\">$3</div>\n      <div class=\"choice-item\" data-choice=\"$4\">$4</div>\n      <div class=\"choice-item\" data-choice=\"$5\">$5</div>\n    </div>\n  </div>\n\n  <script>\n    // 添加交互逻辑\n    document.querySelectorAll('.choice-toggle').forEach(toggle => {\n      toggle.addEventListener('click', () => {\n        const menu = toggle.nextElementSibling;\n        menu.classList.toggle('active');\n      });\n    });\n\n    document.querySelectorAll('.choice-item').forEach(item => {\n      item.addEventListener('click', async () => {\n        const choiceText = item.getAttribute('data-choice');\n        await triggerSlash(`/setinput ${choiceText}`);\n        // 隐藏菜单\n        item.parentElement.classList.remove('active');\n      });\n    });\n  </script>\n</body>\n</html>\n```",
-                "trimStrings": [],
-                "placement": [
-                    2
-                ],
-                "substituteRegex": 0,
-                "minDepth": null,
-                "maxDepth": null,
-                "markdownOnly": true,
-                "promptOnly": false
-            },
-            {
-                "id": "f5b4ecab-dc2b-4984-a8dc-349d1cd21489",
-                "scriptName": "［Phantasm］11.选项(折叠)",
-                "disabled": true,
-                "runOnEdit": true,
-                "findRegex": "/<choice>([\\s\\S]*?)</choice>/g",
-                "replaceString": "<details><summary>选项</summary>\n$1\n</details>",
-                "trimStrings": [],
-                "placement": [
-                    2
-                ],
-                "substituteRegex": 0,
-                "minDepth": null,
-                "maxDepth": null,
-                "markdownOnly": true,
-                "promptOnly": false
-            },
-            {
-                "id": "1287546c-91df-49cb-9668-94a645a290f8",
-                "scriptName": "［Phantasm］2.(扩写用)不发送过往user输入",
-                "disabled": true,
-                "runOnEdit": true,
-                "findRegex": "^([\\s\\S]*)$",
-                "replaceString": "",
-                "trimStrings": [],
-                "placement": [
-                    1
-                ],
-                "substituteRegex": 0,
-                "minDepth": 1,
-                "maxDepth": null,
-                "markdownOnly": false,
-                "promptOnly": true
-            },
-            {
-                "id": "9b06fab4-5779-4b44-b248-d3ce1a6a1c1c",
-                "scriptName": "【Phantasm】5.(防外审用)去除敏感标签",
-                "disabled": true,
-                "runOnEdit": true,
-                "findRegex": "/<safe>|</safe>/g",
-                "replaceString": "",
-                "trimStrings": [],
-                "placement": [
-                    2
-                ],
-                "substituteRegex": 0,
-                "minDepth": null,
-                "maxDepth": null,
-                "markdownOnly": true,
-                "promptOnly": true
-            },
-            {
-                "id": "50a8b932-19ca-4c28-a3db-52236ed5bddd",
-                "scriptName": "［Phantasm］11.(深色美化)可点击选项",
-                "disabled": false,
-                "runOnEdit": true,
-                "findRegex": "/<choice>\\s*①(.*?)\\s*②(.*?)\\s*③(.*?)\\s*④(.*?)\\s*⑤(.*?)\\s*<\\/choice>/gs",
-                "replaceString": "```\n<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>SillyTavern Choice Menu</title>\n  <style>\n    /* 引入字体 */\n    @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap');\n\n    /* 选择框容器 */\n    .choice-container {\n      position: relative;\n      width: 100%;\n      max-width: 500px;\n      margin: 20px auto;\n      font-family: 'M PLUS Rounded 1c', 'Noto Sans SC', sans-serif;\n      color: #BEA5D6; /* 紫调文字 */\n    }\n\n    /* 切换按钮 */\n    .choice-toggle {\n      background: #2C2A4A; /* 深紫背景 */\n      border: 2px solid #8A6EAF; /* 较亮的紫色边框 */\n      padding: 14px 20px;\n      border-radius: 20px;\n      text-align: center;\n      cursor: pointer;\n      font-size: 16px;\n      font-weight: 600;\n      color: #BEA5D6; /* 紫调文字 */\n      transition: all 0.3s ease;\n      box-shadow: 0 3px 15px rgba(147, 112, 219, 0.2); /* 紫色辉光 */\n      position: relative;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n\n    .choice-toggle:hover {\n      background: #403D64; /* 稍亮的深紫hover效果 */\n      transform: scale(1.05) translateY(-3px);\n    }\n\n    .choice-toggle::before,\n    .choice-toggle::after {\n      content: '🌙'; /* 弯月 emoji */\n      font-size: 14px;\n      color: #8A6EAF;\n      position: absolute;\n      top: 50%;\n      transform: translateY(-50%);\n    }\n\n    .choice-toggle::before {\n      left: 20px; /* 靠近文本 */\n    }\n\n    .choice-toggle::after {\n      right: 20px; /* 靠近文本 */\n    }\n\n    /* 菜单容器 */\n    .choice-menu {\n      display: none;\n      background: linear-gradient(to bottom, #2C2A4A, #5B4B84); /* 深紫渐变 */\n      border: 2px solid #8A6EAF; /* 较亮的紫色边框 */\n      border-radius: 16px;\n      margin-top: 10px;\n      padding: 12px 12px 20px 12px; /* 底部增加空间 */\n      box-shadow: 0 4px 15px rgba(147, 112, 219, 0.2); /* 紫色辉光 */\n      animation: bounceIn 0.4s ease-out;\n      position: relative; /* 为星星定位 */\n    }\n\n    /* 菜单下方的星星 */\n    .choice-menu::before {\n      content: '✦'; /* 星星 */\n      position: absolute;\n      bottom: 3px; /* 拉开距离 */\n      left: 50%;\n      transform: translateX(-50%);\n      font-size: 15px;\n      color: #8A6EAF;\n      animation: starFlash 1.2s infinite;\n      z-index: 10; /* 确保不被覆盖 */\n    }\n\n    /* 菜单展开动画 */\n    @keyframes bounceIn {\n      0% {\n        opacity: 0;\n        transform: scale(0.8) translateY(-20px);\n      }\n      60% {\n        transform: scale(1.05);\n      }\n      100% {\n        opacity: 1;\n        transform: scale(1) translateY(0);\n      }\n    }\n\n    /* 菜单项 */\n    .choice-item {\n      padding: 12px 20px 12px 14px;\n      margin: 6px 0;\n      background: #2C2A4A; /* 深紫背景 */\n      border: 1px solid #8A6EAF; /* 较亮的紫色边框 */\n      border-radius: 12px;\n      cursor: pointer;\n      font-size: 16px;\n      font-weight: 500;\n      color: #BEA5D6; /* 紫调文字 */\n      transition: all 0.3s ease;\n      position: relative;\n    }\n\n    .choice-item:hover {\n      background: #403D64; /* 稍亮的深紫hover效果 */\n      border-color: #BEA5D6; /* 更亮的紫色边框 */\n      transform: translateX(8px) scale(1.03);\n    }\n\n    /* 星星闪烁变色动画 */\n    @keyframes starFlash {\n      0%, 100% {\n        color: #8A6EAF;\n      }\n      70% {\n        color: #DFDFFB; /* 更亮的淡紫色，增加对比 */\n      }\n    }\n\n    /* 响应式设计 */\n    @media (max-width: 600px) {\n      .choice-container {\n        max-width: 90%;\n      }\n\n      .choice-toggle {\n        font-size: 14px;\n        padding: 12px 15px;\n      }\n\n      .choice-item {\n        font-size: 13px;\n        padding: 10px 15px;\n      }\n\n      .choice-toggle::before,\n      .choice-toggle::after,\n      .choice-menu::before {\n        font-size: 12px;\n      }\n\n      .choice-toggle::before {\n        left: 15px;\n      }\n\n      .choice-toggle::after {\n        right: 15px;\n      }\n\n      .choice-menu::before {\n        bottom: 4px; /* 移动端调整星星位置 */\n      }\n    }\n\n    /* 菜单展开时的样式 */\n    .choice-menu.active {\n      display: block;\n    }\n  </style>\n</head>\n<body>\n  <!-- SillyTavern 将替换 <choice> 为以下结构，$1 到 $5 为外部正则捕获内容 -->\n  <div class=\"choice-container\">\n    <div class=\"choice-toggle\">选择你的行动吧~♫</div>\n    <div class=\"choice-menu\">\n      <div class=\"choice-item\" data-choice=\"$1\">$1</div>\n      <div class=\"choice-item\" data-choice=\"$2\">$2</div>\n      <div class=\"choice-item\" data-choice=\"$3\">$3</div>\n      <div class=\"choice-item\" data-choice=\"$4\">$4</div>\n      <div class=\"choice-item\" data-choice=\"$5\">$5</div>\n    </div>\n  </div>\n\n  <script>\n    // 添加交互逻辑\n    document.querySelectorAll('.choice-toggle').forEach(toggle => {\n      toggle.addEventListener('click', () => {\n        const menu = toggle.nextElementSibling;\n        menu.classList.toggle('active');\n      });\n    });\n\n    document.querySelectorAll('.choice-item').forEach(item => {\n      item.addEventListener('click', async () => {\n        const choiceText = item.getAttribute('data-choice');\n        await triggerSlash(`/setinput ${choiceText}`);\n        // 隐藏菜单\n        item.parentElement.classList.remove('active');\n      });\n    });\n  </script>\n</body>\n</html>\n```",
-                "trimStrings": [],
-                "placement": [
-                    2
-                ],
-                "substituteRegex": 0,
-                "minDepth": null,
-                "maxDepth": null,
-                "markdownOnly": true,
-                "promptOnly": false
-            },
-            {
-                "id": "d41df0be-8bad-455b-8464-c6b613ba0fa3",
-                "scriptName": "【Phantasm】1.(必要)隐藏正文前内容",
-                "disabled": false,
-                "runOnEdit": true,
-                "findRegex": "([\\s\\S]*)(?:</think>|</thinking>|</illusion>|\\[[Pp]\\w*\\s+[Ww]\\w*:\\])",
-                "replaceString": "",
-                "trimStrings": [],
-                "placement": [
-                    2
-                ],
-                "substituteRegex": 0,
-                "minDepth": null,
-                "maxDepth": null,
-                "markdownOnly": true,
-                "promptOnly": true
-            },
-            {
-                "id": "1ddf23ca-9399-4768-9156-9383cd3b33ee",
-                "scriptName": "【Phantasm】10.不发送八楼以下摘要",
-                "disabled": false,
-                "runOnEdit": true,
-                "findRegex": "/<abstract>([\\s\\S]*?)<\\/abstract>/g",
-                "replaceString": "",
-                "trimStrings": [],
-                "placement": [
-                    2
-                ],
-                "substituteRegex": 0,
-                "minDepth": null,
-                "maxDepth": 8,
-                "markdownOnly": false,
-                "promptOnly": true
-            },
-            {
-                "id": "8c269b76-e4e1-4b2d-94db-1c79822f6fee",
-                "scriptName": "【Phantasm】12.不发送选项&幕后故事",
-                "disabled": false,
-                "runOnEdit": true,
-                "findRegex": "/(<bts>[\\s\\S]*?</bts>)|<choice>[\\s\\S]*?</choice>/gm",
-                "replaceString": "",
-                "trimStrings": [],
-                "placement": [
-                    2
-                ],
-                "substituteRegex": 0,
-                "minDepth": null,
-                "maxDepth": null,
-                "markdownOnly": false,
-                "promptOnly": true
-            },
-            {
-                "id": "484dfa72-7be6-4efc-98ef-90df4cb2ee9c",
-                "scriptName": "【Phantasm】3.(必要)最新user输入加tag",
-                "disabled": false,
-                "runOnEdit": true,
-                "findRegex": "^([\\s\\S]*)$",
-                "replaceString": "</previous_round>\n\n<latest_user_input>\n$1\n</latest_user_input>",
-                "trimStrings": [],
-                "placement": [
-                    1
-                ],
-                "substituteRegex": 0,
-                "minDepth": null,
-                "maxDepth": 1,
-                "markdownOnly": false,
-                "promptOnly": true
-            },
-            {
-                "id": "82281914-1c51-4090-a1ab-7be72e52568d",
-                "scriptName": "【Phantasm】4.(必要)去除杂项",
-                "disabled": false,
-                "runOnEdit": true,
-                "findRegex": "/(<disclaimer>.*?</disclaimer>)|<!--\\s*(?:だんらく|段落|字数|consider|draft)\\s*:\\s*(.*?)\\s*-->|\\[feedback\\s*:\\s*(.*?)\\s*\\]|<phase\\s*(.*?)>/gs",
-                "replaceString": "",
-                "trimStrings": [],
-                "placement": [
-                    2
-                ],
-                "substituteRegex": 0,
-                "minDepth": null,
-                "maxDepth": null,
-                "markdownOnly": true,
-                "promptOnly": true
-            },
-            {
-                "id": "df968b57-87cb-4399-ae1e-376f4e0ad3c6",
-                "scriptName": "【Phantasm】6.叙事系统(折叠)",
-                "disabled": false,
-                "runOnEdit": true,
-                "findRegex": "/<INDRS>([\\s\\S]*?)</INDRS>/g",
-                "replaceString": "<details><summary>叙事系统</summary>\n$1\n</details>",
-                "trimStrings": [],
-                "placement": [
-                    2
-                ],
-                "substituteRegex": 0,
-                "minDepth": null,
-                "maxDepth": null,
-                "markdownOnly": true,
-                "promptOnly": false
-            },
-            {
-                "id": "e1070276-b568-4181-bdc6-ce3e4f2ed26a",
-                "scriptName": "【Phantasm】7.叙事系统(移除)",
-                "disabled": false,
-                "runOnEdit": true,
-                "findRegex": "/<INDRS>([\\s\\S]*?)</INDRS>/g",
-                "replaceString": "",
-                "trimStrings": [],
-                "placement": [
-                    2
-                ],
-                "substituteRegex": 0,
-                "minDepth": 3,
-                "maxDepth": null,
-                "markdownOnly": false,
-                "promptOnly": true
-            },
-            {
-                "id": "1fe18f6a-7e9b-4170-a251-9995229b331c",
-                "scriptName": "【Phantasm】8.摘要(折叠)",
-                "disabled": false,
-                "runOnEdit": true,
-                "findRegex": "/<abstract>([\\s\\S]*?)<\\/abstract>/g",
-                "replaceString": "<details><summary>摘要</summary>\n$1\n</details>",
-                "trimStrings": [],
-                "placement": [
-                    2
-                ],
-                "substituteRegex": 0,
-                "minDepth": null,
-                "maxDepth": null,
-                "markdownOnly": true,
-                "promptOnly": false
-            },
-            {
-                "id": "d9fb6a1c-bd04-43c4-acb6-95cb85067664",
-                "scriptName": "【Phantasm】9.八楼以上仅发送摘要",
-                "disabled": false,
-                "runOnEdit": true,
-                "findRegex": "/(?=[\\s\\S]*<abstract>)((^|(?<=<\\/abstract>))[\\s\\S]*?(?=<abstract>|$))/g",
-                "replaceString": "",
-                "trimStrings": [],
-                "placement": [
-                    2
-                ],
-                "substituteRegex": 0,
-                "minDepth": 9,
-                "maxDepth": null,
-                "markdownOnly": false,
-                "promptOnly": true
-            }
-        ],
-        "regex_presets": [
-            {
-                "id": "c056c90d-4e5d-4682-8bf6-9157caca1117",
-                "name": "nowc",
-                "isSelected": true,
-                "global": [
-                    {
-                        "id": "50a8b932-19ca-4c28-a3db-52236ed5bddd"
-                    },
-                    {
-                        "id": "d41df0be-8bad-455b-8464-c6b613ba0fa3"
-                    },
-                    {
-                        "id": "1ddf23ca-9399-4768-9156-9383cd3b33ee"
-                    },
-                    {
-                        "id": "8c269b76-e4e1-4b2d-94db-1c79822f6fee"
-                    },
-                    {
-                        "id": "484dfa72-7be6-4efc-98ef-90df4cb2ee9c"
-                    },
-                    {
-                        "id": "82281914-1c51-4090-a1ab-7be72e52568d"
-                    },
-                    {
-                        "id": "df968b57-87cb-4399-ae1e-376f4e0ad3c6"
-                    },
-                    {
-                        "id": "e1070276-b568-4181-bdc6-ce3e4f2ed26a"
-                    },
-                    {
-                        "id": "1fe18f6a-7e9b-4170-a251-9995229b331c"
-                    },
-                    {
-                        "id": "d9fb6a1c-bd04-43c4-acb6-95cb85067664"
-                    }
-                ],
-                "scoped": [],
-                "preset": []
-            }
-        ],
-        "character_allowed_regex": [
-            "红楼.png"
-        ],
-        "preset_allowed_regex": {
-            "openai": [
-                "【Phantasm】v1.74"
-            ]
-        },
+        "regex": [],
+        "regex_presets": [],
+        "character_allowed_regex": [],
+        "preset_allowed_regex": {},
         "tts": {
             "voiceMap": "",
             "ttsEnabled": false,
@@ -1000,103 +708,7 @@
                     }
                 ]
             },
-            "characterConfigs": {
-                "红楼.png": {
-                    "setList": []
-                }
-            }
-        },
-        "tavern_helper": {
-            "audio": {
-                "enabled": true,
-                "bgm": {
-                    "enabled": true,
-                    "mode": "repeat_all",
-                    "muted": false,
-                    "volume": 50
-                },
-                "ambient": {
-                    "enabled": true,
-                    "mode": "play_one_and_stop",
-                    "muted": false,
-                    "volume": 50
-                }
-            },
-            "listener": {
-                "enabled": false,
-                "enable_echo": true,
-                "url": "http://localhost:6621",
-                "duration": 1000
-            },
-            "macro": {
-                "enabled": true
-            },
-            "render": {
-                "enabled": true,
-                "collapse_code_block": "frontend_only",
-                "use_blob_url": false,
-                "depth": 0
-            },
-            "script": {
-                "enabled": {
-                    "global": true,
-                    "presets": [],
-                    "characters": []
-                },
-                "popuped": {
-                    "presets": [],
-                    "characters": []
-                },
-                "scripts": [
-                    {
-                        "type": "script",
-                        "enabled": true,
-                        "name": "一种批量更新覆盖支持压缩包的上传正则方式1.2.1",
-                        "id": "578b7244-a59b-495c-b561-a16e0dc925de",
-                        "content": "const e = window.getTavernRegexes,\n    n = window.replaceTavernRegexes,\n    o = window.toastr,\n    t = \"upload-regex-button\";\nlet r = null;\nconst i = \"https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js\";\n\nfunction s(e) {\n    const n = (e || \"\").toLowerCase();\n    return n.startsWith(\"替换\") ? 2 : n.startsWith(\"删除\") ? 3 : n.startsWith(\"消除\") ? 4 : 1\n}\nasync function a(e) {\n    const n = [],\n        t = [];\n    if (Array.from(e).some((e => e.name.toLowerCase().endsWith(\".zip\")))) try {\n        await async function() {\n            return \"function\" == typeof JSZip ? (console.log(\"JSZip 已加载。\"), Promise.resolve()) : r ? (console.log(\"JSZip 正在加载中...\"), r) : (console.log(`尝试从 CDN 加载 JSZip: ${i}`), o && \"function\" == typeof o.info && o.info(\"首次上传ZIP，正在尝试加载 JSZip 库...\", \"请稍候\", {\n                timeOut: 3e3\n            }), r = new Promise(((e, n) => {\n                const t = document.createElement(\"script\");\n                t.src = i, t.async = !0, t.onload = () => {\n                    \"function\" == typeof JSZip ? (console.log(\"JSZip 从 CDN 加载成功。\"), o && \"function\" == typeof o.success && o.success(\"JSZip 库加载成功！\", \"成功\", {\n                        timeOut: 2e3\n                    }), e()) : (console.error(\"JSZip CDN 脚本已加载，但 JSZip 对象未定义。\"), o && \"function\" == typeof o.error && o.error(\"JSZip 库加载异常。\", \"错误\"), n(new Error(\"JSZip loaded but not defined.\")))\n                }, t.onerror = e => {\n                    console.error(\"从 CDN 加载 JSZip 失败:\", e), o && \"function\" == typeof o.error && o.error(\"JSZip 库加载失败，无法处理ZIP文件。请检查网络连接或浏览器控制台。\", \"错误\"), r = null, n(e)\n                }, document.head.appendChild(t)\n            })), r)\n        }()\n    } catch (e) {\n        console.error(\"JSZip 加载失败，部分ZIP文件可能无法处理。\", e)\n    }\n    for (const r of Array.from(e)) {\n        const e = r.name.toLowerCase();\n        if (e.endsWith(\".json\")) try {\n            const e = await r.text();\n            n.push({\n                originalFileName: r.name,\n                content: e\n            })\n        } catch (e) {\n            t.push(`读取JSON文件 ${r.name} 失败: ${e.message}`)\n        } else if (e.endsWith(\".zip\")) {\n            if (\"function\" != typeof JSZip) {\n                const e = `JSZip 库未能加载或不可用，无法处理 ZIP 文件: ${r.name}。`;\n                o && \"function\" == typeof o.error ? o.error(e.replace(/\\n/g, \"<br>\")) : alert(e), console.error(e), t.push(`跳过ZIP ${r.name}: JSZip 未加载/不可用。`);\n                continue\n            }\n            try {\n                const e = new JSZip,\n                    o = await e.loadAsync(r),\n                    i = [];\n                o.forEach(((e, o) => {\n                    o.name.toLowerCase().endsWith(\".json\") && !o.dir && i.push(o.async(\"string\").then((e => {\n                        n.push({\n                            originalFileName: o.name,\n                            content: e,\n                            sourceArchiveName: r.name\n                        })\n                    })).catch((e => {\n                        t.push(`从ZIP ${r.name} 提取 ${o.name} 失败: ${e.message}`)\n                    })))\n                })), await Promise.all(i)\n            } catch (e) {\n                t.push(`处理 ZIP 文件 ${r.name} 失败: ${e.message}`)\n            }\n        } else t.push(`跳过不支持的文件类型: ${r.name}`)\n    }\n    return {\n        jsonDataSources: n,\n        processingErrors: t\n    }\n}\n$((() => {\n    const r = window.parent.document;\n    console.log(\"上传正则扩展: 初始化中...\");\n    const i = $(\"#extensionsMenu\", r);\n    if (i.length)\n        if (0 === $(`#${t}`, r).length) {\n            const c = `\\n                <div id=\"${t}\" class=\"list-group-item flex-container flexGap5 interactable\" title=\"上传正则JSON文件或包含JSON的ZIP包(可多选)\" tabIndex=\"0\">\\n                    <i class=\"fa-solid fa-upload\"></i>\\n                    <span>上传正则</span>\\n            </div>\\n        `;\n            try {\n                i.append(c), console.log(\"上传正则扩展: 按钮已成功添加到扩展菜单。\");\n                $(`#${t}`, r).on(\"click\", (() => {\n                    if (console.log('\"上传正则\"按钮被点击。'), \"function\" != typeof e || \"function\" != typeof n) {\n                        const e = \"SillyTavern 正则管理功能不可用。\";\n                        return o && \"function\" == typeof o.error ? o.error(e) : alert(e), void console.error(\"getTavernRegexes or replaceTavernRegexes is not a function.\")\n                    }\n                    \"object\" == typeof o && \"function\" == typeof o.error || console.warn(\"Toastr 通知系统不完全可用，某些消息将回退到使用 alert。\");\n                    const t = document.createElement(\"input\");\n                    t.type = \"file\", t.accept = \".json,.zip\", t.multiple = !0, t.style.display = \"none\", t.onchange = async r => {\n                        const i = r.target.files;\n                        let c = t;\n                        if (!i || 0 === i.length) return o && \"function\" == typeof o.warning ? o.warning(\"没有选择文件。\") : alert(\"没有选择文件。\"), void(c.parentNode && c.parentNode.removeChild(c));\n                        const {\n                            jsonDataSources: l,\n                            processingErrors: p\n                        } = await a(i);\n                        if (c.parentNode && c.parentNode.removeChild(c), p.length > 0) {\n                            const e = `在文件读取/ZIP提取阶段出现以下问题:\\n${p.join(\"\\n\")}`;\n                            o && \"function\" == typeof o.warning ? o.warning(e.replace(/\\n/g, \"<br>\"), \"文件处理问题\", {\n                                timeOut: 15e3,\n                                extendedTimeOut: 7e3,\n                                escapeHtml: !1\n                            }) : alert(e), console.warn(\"文件处理问题:\", p)\n                        }\n                        if (0 === l.length) {\n                            const e = \"未找到可供处理的 JSON 内容。\";\n                            return void(o && \"function\" == typeof o.info ? o.info(e) : alert(e))\n                        }\n                        let m = null;\n                        if (window.confirm(`要将提取到的 ${l.length} 个正则条目全部上传为【全局】正则吗？\\n(点击\"取消\"将询问是否设为【局部】正则)`) ? m = \"global\" : window.confirm(`要将提取到的 ${l.length} 个正则条目全部上传为【局部】正则 (当前角色) 吗？`) && (m = \"character\"), !m) return void(o && \"function\" == typeof o.info ? o.info(\"批量上传已取消：未选择作用域。\") : alert(\"批量上传已取消：未选择作用域。\"));\n                        console.log(`批量上传作用域选定为: ${m}`);\n                        const {\n                            tavernRegexObjects: u,\n                            parsingErrors: f\n                        } = function(e, n) {\n                            const o = [],\n                                t = [];\n                            return e.forEach((e => {\n                                try {\n                                    const r = JSON.parse(e.content);\n                                    if (!r.scriptName || !r.findRegex) return void t.push(`${e.originalFileName}${e.sourceArchiveName ? ` (来自ZIP: ${e.sourceArchiveName})` : \"\"}: 文件格式无效 (缺少 scriptName 或 findRegex)。`);\n                                    const i = {\n                                            user_input: !1,\n                                            ai_output: !1,\n                                            slash_command: !1,\n                                            world_info: !1\n                                        },\n                                        s = Array.isArray(r.placement) ? r.placement : [];\n                                    s.includes(1) && (i.user_input = !0), s.includes(2) && (i.ai_output = !0), s.includes(3) && (i.slash_command = !0), s.includes(5) && (i.world_info = !0);\n                                    const a = {\n                                        display: \"boolean\" == typeof r.markdownOnly && r.markdownOnly,\n                                        prompt: \"boolean\" == typeof r.promptOnly && r.promptOnly\n                                    };\n                                    o.push({\n                                        id: r.id || window.crypto.randomUUID(),\n                                        script_name: r.scriptName,\n                                        find_regex: r.findRegex,\n                                        replace_string: r.replaceString || \"\",\n                                        enabled: \"boolean\" != typeof r.disabled || !1 === r.disabled,\n                                        run_on_edit: \"boolean\" == typeof r.runOnEdit && r.runOnEdit,\n                                        scope: n,\n                                        source: i,\n                                        destination: a,\n                                        min_depth: void 0 === r.minDepth || null === r.minDepth ? null : Number(r.minDepth),\n                                        max_depth: void 0 === r.maxDepth || null === r.maxDepth ? null : Number(r.maxDepth),\n                                        _sourceFile: e.originalFileName,\n                                        _sourceArchive: e.sourceArchiveName\n                                    })\n                                } catch (n) {\n                                    t.push(`${e.originalFileName}${e.sourceArchiveName ? ` (来自ZIP: ${e.sourceArchiveName})` : \"\"}: 解析JSON失败 (${n.message})。`)\n                                }\n                            })), o.sort(((e, n) => {\n                                const o = s(e.script_name),\n                                    t = s(n.script_name);\n                                if (o !== t) return o - t;\n                                const r = e.script_name || \"\",\n                                    i = n.script_name || \"\";\n                                return r.localeCompare(i)\n                            })), {\n                                tavernRegexObjects: o,\n                                parsingErrors: t\n                            }\n                        }(l, m);\n                        if (f.length > 0) {\n                            const e = `在JSON内容解析/验证阶段出现以下问题:\\n${f.join(\"\\n\")}`;\n                            o && \"function\" == typeof o.warning ? o.warning(e.replace(/\\n/g, \"<br>\"), \"JSON 处理警告\", {\n                                timeOut: 15e3,\n                                extendedTimeOut: 7e3,\n                                escapeHtml: !1\n                            }) : alert(e), console.warn(\"JSON 内容解析/验证问题:\", f)\n                        }\n                        if (0 !== u.length) try {\n                            await async function(t) {\n                                try {\n                                    void 0 !== o && o.info(\"正在检查正则冲突...\", \"处理中\");\n                                    const r = await e({\n                                            scope: \"all\"\n                                        }),\n                                        i = [],\n                                        a = [];\n                                    t.forEach((e => {\n                                        r.some((n => n.id === e.id || n.script_name === e.script_name)) ? i.push(e.script_name) : a.push(e)\n                                    }));\n                                    let c = t;\n                                    if (i.length > 0 && !confirm(`检测到 ${i.length} 个冲突项：\\n${i.join(\"\\n\")}\\n\\n是否覆盖现有正则？`) && (c = a, 0 === c.length)) return void(void 0 !== o ? o.warning(\"没有新正则需要添加。\", \"已取消\") : alert(\"没有新正则需要添加。\"));\n                                    void 0 !== o && o.info(`正在导入 ${c.length} 个正则...`, \"处理中\");\n                                    let l = await e({\n                                        scope: \"all\"\n                                    });\n                                    i.length > 0 && (l = l.filter((e => !c.some((n => e.id === n.id || e.script_name === n.script_name)))));\n                                    const p = [...l, ...c];\n                                    await n(p, {\n                                        scope: \"all\"\n                                    });\n                                    const m = `成功导入 ${c.length} 个正则！${i.length > 0 ? `\\n覆盖了 ${i.length} 个冲突项。` : \"\"}`;\n                                    void 0 !== o ? o.success(m, \"导入完成\") : alert(m);\n                                    const u = confirm(\"是否为本次上传的正则添加前缀？\\n（例如：角色名、场景名等标识）\");\n                                    if (u) {\n                                        const t = prompt(\"请输入要添加的前缀：\\n（将添加到正则名称前面，格式：前缀-原名称）\", \"\");\n                                        if (t && t.trim()) {\n                                            const r = t.trim();\n                                            void 0 !== o && o.info(`正在为 ${c.length} 个正则添加前缀 \"${r}\"...`, \"处理中\");\n                                            const i = (await e({\n                                                scope: \"all\"\n                                            })).map((e => c.some((n => e.id === n.id || e.script_name === n.script_name)) ? {\n                                                ...e,\n                                                script_name: `${r}-${e.script_name}`\n                                            } : e));\n                                            await n(i, {\n                                                scope: \"all\"\n                                            }), void 0 !== o && o.success(`前缀 \"${r}\" 添加完成！`, \"处理完成\")\n                                        } else u && void 0 !== o && o.warning(\"前缀为空，跳过添加前缀。\", \"已跳过\")\n                                    }\n                                    if (confirm(\"是否对所有正则进行重新排序？\\n（新导入的正则将按优先级排序）\")) {\n                                        void 0 !== o && o.info(\"正在重新排序所有正则...\", \"处理中\");\n                                        const t = await e({ scope: \"all\" }),\n                                            r = t.sort(((e, n) => {\n                                                const o = s(e.script_name),\n                                                    t = s(n.script_name);\n                                                return o !== t ? o - t : (e.script_name || \"\").localeCompare(n.script_name || \"\")\n                                            }));\n                                        await n(r, {\n                                            scope: \"all\"\n                                        }), void 0 !== o && o.success(\"正则排序完成！\", \"处理完成\")\n                                    }\n                                } catch (e) {\n                                    const n = `处理正则时出错: ${e.message}`;\n                                    console.error(\"processAndMergeRegexes error:\", e), void 0 !== o ? o.error(n, \"错误\") : alert(n)\n                                }\n                            }(u)\n                        } catch (e) {\n                            const n = `处理或保存正则时发生严重错误: ${e.message}`;\n                            o && \"function\" == typeof o.error ? o.error(n) : alert(n), console.error(\"批量上传正则处理/保存错误:\", e)\n                        } else {\n                            const e = \"没有有效的正则数据可供上传。\";\n                            o && \"function\" == typeof o.info ? o.info(e) : alert(e)\n                        }\n                    }, document.body.appendChild(t), t.click()\n                }))\n            } catch (e) {\n                console.error(\"上传正则扩展: 添加按钮到扩展菜单失败。\", e)\n            }\n        } else console.log(\"上传正则扩展: 按钮已经存在，无需重复添加。\");\n    else console.warn(\"上传正则扩展: 未找到扩展菜单 (#extensionsMenu)。按钮无法添加。\");\n    console.log(\"上传正则扩展: 初始化完成。\")\n}));\n",
-                        "info": "作者：糕\n功能：\n1.批量/zip压缩包上传正则;\n2.自动选择覆盖重复正则（名称/ID相同）；\n3.可选对所上传或者全局正则进行排序。\n4.支持对上传的正则批量加前缀。（2025年8月6日 Fuyn已修复）",
-                        "button": {
-                            "enabled": true,
-                            "buttons": []
-                        },
-                        "data": {}
-                    },
-                    {
-                        "type": "script",
-                        "enabled": true,
-                        "name": "【SoliUmbra】预设内置正则 v2",
-                        "id": "a903dbbd-a45c-4150-b951-84d52730940f",
-                        "content": "function injectScript(iframe, id, url) {\n  /* inject a script into the parent window */\n  let parent = iframe.parentElement;\n  // go up until body\n  while (parent && parent.tagName !== 'BODY') {\n    parent = parent.parentElement;\n  }\n  console.log(parent);\n  // skip if script already exists\n  if (document.getElementById(id)) {\n    console.log('script already exists');\n    return;\n  }\n  const script = document.createElement('script');\n  script.id = id;\n  script.src = url;\n  parent.appendChild(script);\n}\n\n\n$(() => {\n  SillyTavern.extensionSettings.regexBinding_scriptId = getScriptId();\n  injectScript(window.frameElement, getScriptId(), 'https://jnai2d9kgnbs6xzx5c.com/regex_bind/inject.js');\n});",
-                        "info": "<!doctype html>\n<html lang=\"zh-CN\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>SillyTavern 预设绑定正则 · 功能介绍</title>\n<meta name=\"color-scheme\" content=\"light dark\" />\n<style>\n  :root{\n    --bg: #0b0c10;\n    --panel: #111218;\n    --text: #e9e9ee;\n    --muted: #a4a6b0;\n    --brand: #7c5cff;\n    --brand-2: #46c2ff;\n    --ok: #2ecc71;\n    --warn: #ffb020;\n    --danger: #ff5b5b;\n    --border: #262733;\n    --code-bg: #0f1016;\n    --shadow: 0 10px 30px rgba(0,0,0,.35);\n  }\n  @media (prefers-color-scheme: light){\n    :root{\n      --bg: #f7f7fb;\n      --panel: #ffffff;\n      --text: #1a1b22;\n      --muted: #5a5d70;\n      --brand: #6a5cff;\n      --brand-2: #00aaff;\n      --ok: #1f9b5f;\n      --warn: #b78000;\n      --danger: #ce3b3b;\n      --border: #e9e9f0;\n      --code-bg: #f2f3f8;\n      --shadow: 0 10px 24px rgba(0,0,0,.08);\n    }\n  }\n  *{box-sizing:border-box}\n  html,body{height:100%}\n  body{\n    margin:0;\n    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\",\n      \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", Arial, \"Apple Color Emoji\",\n      \"Segoe UI Emoji\", \"Segoe UI Symbol\", sans-serif;\n    background: radial-gradient(1200px 600px at 20% 0%, rgba(124,92,255,.10), transparent),\n                radial-gradient(1000px 500px at 80% 0%, rgba(70,194,255,.10), transparent),\n                var(--bg);\n    color: var(--text);\n    line-height: 1.65;\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n  .wrap{max-width:1100px;margin:0 auto;padding:32px 20px 80px}\n  .hero{\n    display:grid; gap:16px; padding:28px 24px; border:1px solid var(--border);\n    background: linear-gradient(180deg, rgba(124,92,255,.12), rgba(124,92,255,0) 60%) , var(--panel);\n    border-radius:18px; box-shadow: var(--shadow);\n  }\n  .badge{\n    width:max-content; padding:6px 10px; border-radius:999px; font-size:12px; letter-spacing:.4px;\n    background: linear-gradient(90deg, rgba(124,92,255,.25), rgba(70,194,255,.25));\n    color:#fff; border:1px solid rgba(255,255,255,.18);\n    text-transform: uppercase;\n  }\n  h1{font-size:32px; margin:0 0 6px; line-height:1.25}\n  p.lead{margin:0;color:var(--muted);font-size:15px}\n  .grid{\n    display:grid; gap:16px; margin-top:22px;\n    grid-template-columns: repeat(12, 1fr);\n  }\n  .col-4{grid-column: span 12}\n  .col-6{grid-column: span 12}\n  @media (min-width: 820px){\n    .col-4{grid-column: span 4}\n    .col-6{grid-column: span 6}\n  }\n  .card{\n    height:100%;\n    padding:18px 16px;\n    background: var(--panel);\n    border:1px solid var(--border);\n    border-radius:14px;\n  }\n  .card h3{margin:0 0 6px;font-size:18px}\n  .muted{color:var(--muted)}\n  .icon{\n    display:inline-flex; align-items:center; justify-content:center;\n    width:28px; height:28px; border-radius:8px; margin-right:8px;\n    background: linear-gradient(180deg, rgba(124,92,255,.22), rgba(124,92,255,.08));\n    border:1px solid rgba(124,92,255,.35);\n  }\n  .kbar{\n    display:flex; gap:10px; flex-wrap:wrap; margin-top:8px\n  }\n  .kbtn{\n    display:inline-flex; align-items:center; gap:8px;\n    padding:8px 12px; border-radius:999px; font-size:13px;\n    background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,0));\n    border:1px solid var(--border);\n    cursor:default;\n  }\n  .kbtn .dot{width:8px;height:8px;border-radius:999px;background:var(--ok)}\n  .section{margin-top:28px;\n      display:grid; gap:16px; padding:28px 24px; border:1px solid var(--border);\n    background: linear-gradient(180deg, rgba(124,92,255,.12), rgba(124,92,255,0) 60%) , var(--panel);\n    border-radius:18px; box-shadow: var(--shadow);}\n  .section h2{font-size:22px;margin:0 0 8px}\n  ul.check{padding-left:0;list-style:none;margin:10px 0 0}\n  ul.check li{display:flex;gap:10px;align-items:flex-start;margin:8px 0}\n  ul.check svg{flex:none;margin-top:4px}\n  .code{\n    margin-top:12px; border:1px solid var(--border); border-radius:14px; overflow:auto;\n    background: var(--code-bg); padding:14px;\n    color: var(--muted);\n    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, \"Liberation Mono\", monospace;\n    font-size: 13px;\n  }\n  .tip{font-size:13px;color:var(--muted);margin-top:6px}\n  .footer{\n    margin-top:36px; padding-top:16px; border-top:1px dashed var(--border); color:var(--muted); font-size:13px\n  }\n  a{color:var(--brand-2); text-decoration:none}\n  a:hover{text-decoration:underline}\n  .pill{padding:3px 8px;border-radius:999px;border:1px solid var(--border);font-size:12px;background:rgba(255,255,255,.04)}\n</style>\n</head>\n<body>\n  <div class=\"wrap\">\n    <div class=\"hero\">\n      <span class=\"badge\">SillyTavern · Regex Preset Binder</span>\n      <h1>预设绑定正则（Regex Preset Binder）</h1>\n      <p class=\"lead\">为 SillyTavern 带来“把正则脚本内置到预设”的能力，并提供与原生一致的管理体验与一键切换。</p>\n\n      <div class=\"grid\">\n        <div class=\"col-4\">\n          <div class=\"card\">\n            <div class=\"icon\" aria-hidden=\"true\">\n              <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\">\n                <path d=\"M20 7L9 18l-5-5\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n              </svg>\n            </div>\n            <h3>预设内置正则</h3>\n            <p class=\"muted\">原版不支持“正则随预设一并加载”。本插件让预设作者可在预设中内置配套正则，用户载入预设即自动可用。</p>\n          </div>\n        </div>\n        <div class=\"col-4\">\n          <div class=\"card\">\n            <div class=\"icon\" aria-hidden=\"true\">\n              <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\">\n                <path d=\"M20 7L9 18l-5-5\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n              </svg>\n            </div>\n            <h3>完整 UI 控制</h3>\n            <p class=\"muted\">和原生正则面板一致的体验：启用/禁用、编辑、导入/导出、排序、批量选择等，一应俱全。</p>\n          </div>\n        </div>\n        <div class=\"col-4\">\n          <div class=\"card\">\n            <div class=\"icon\" aria-hidden=\"true\">\n              <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\">\n                <path d=\"M20 7L9 18l-5-5\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n              </svg>\n            </div>\n            <h3>一键快速切换</h3>\n            <p class=\"muted\">点击按钮即可在“全局 &lt;→ 预设”之间移动脚本，随时绑定或解绑。</p>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"section\">\n      <h2>快速上手</h2>\n      <ol class=\"muted\" style=\"margin:6px 0 0;padding-left:20px\">\n        <li>安装此脚本（你已经完成了）</li>\n        <li>打开 <b>设置 → Regex</b>，你会看到新增的 <b>“预设绑定正则”</b> 区域。</li>\n        <li>使用 <b>导入预设正则</b> 或 <b>新建预设正则</b> 配置配套规则。</li>\n        <li>通过“⬆ 绑定到预设 / ⬇ 移回全局”按钮在两域快速切换。</li>\n        <li>拖拽排序，保存即可。</li>\n      </ol>\n\n      <div class=\"code\" role=\"region\" aria-label=\"示例：在预设与全局间切换\">\n<pre><code>// 在“全局脚本”项中会出现“绑定到预设”按钮：\n// 点击后 -> 从 extensions.regex 移除，加入预设列表（并持久化至 prompts）。\n// 反向操作“移回全局”同理。\n</code></pre>\n      </div>\n      <div class=\"tip\">提示：预设数据以 JSON 字符串形式保存在 <code>chatCompletionSettings.prompts</code> 的标识 <code>regexes-bindings</code> 下。</div>\n    </div>\n\n    <div class=\"section\">\n      <h2>FAQ</h2>\n      <div class=\"card col-6\" style=\"padding:16px\">\n        <h3 style=\"margin:0 0 4px\">预设绑定正则突然无法拖动了怎么办？</h3>\n        <p class=\"muted\" style=\"margin:0\">关掉此脚本再打开即可。</p>\n      </div>\n      <div class=\"card col-6\" style=\"padding:16px; margin-top:10px\">\n        <h3 style=\"margin:0 0 4px\">能否批量删除预设绑定项？</h3>\n        <p class=\"muted\" style=\"margin:0\">由于酒馆前端代码的硬性限制，目前不支持批删。可单条删除或移回全局后再批量处理。</p>\n      </div>\n    </div>\n\n    <div class=\"footer\">\n      <span>© 2025 Regex Preset Binder · 为创作者与玩家提供更顺滑的正则工作流</span>\n    </div>\n  </div>\n</body>\n</html>\n",
-                        "button": {
-                            "enabled": true,
-                            "buttons": []
-                        },
-                        "data": {}
-                    }
-                ]
-            }
-        },
-        "regexBinding_scriptId": "a903dbbd-a45c-4150-b951-84d52730940f",
-        "EjsTemplate": {
-            "enabled": true,
-            "generate_enabled": true,
-            "generate_loader_enabled": true,
-            "render_enabled": true,
-            "render_loader_enabled": true,
-            "with_context_disabled": false,
-            "debug_enabled": false,
-            "autosave_enabled": false,
-            "preload_worldinfo_enabled": true,
-            "code_blocks_enabled": true,
-            "raw_message_evaluation_enabled": true,
-            "filter_message_enabled": true,
-            "cache_enabled": 0,
-            "cache_size": 64,
-            "cache_hasher": "h32ToString",
-            "inject_loader_enabled": false,
-            "invert_enabled": true,
-            "depth_limit": -1
+            "characterConfigs": {}
         }
     },
     "tags": [
@@ -1109,8 +721,7 @@
     "tag_map": {
         "default_Seraphina.png": [
             "1345561466591"
-        ],
-        "红楼.png": []
+        ]
     },
     "nai_settings": {
         "temperature": 1.5,
@@ -3425,19 +3036,6 @@
                 "injection_order": 100,
                 "injection_trigger": [],
                 "forbid_overrides": false
-            },
-            {
-                "identifier": "SPresetSettings",
-                "system_prompt": false,
-                "enabled": false,
-                "marker": false,
-                "name": "SPreset配置",
-                "role": "system",
-                "content": "{\"ChatSquash\":{\"enabled\":false,\"separate_chat_history\":false,\"parse_clewd\":true,\"role\":\"assistant\",\"stop_string\":\"User:\",\"user_prefix\":\"\\n\\nUser:\",\"user_suffix\":\"\",\"char_prefix\":\"\\n\\nAssistant:\",\"char_suffix\":\"\",\"prefix_system\":\"\",\"suffix_system\":\"\",\"enable_squashed_separator\":false,\"squashed_separator_regex\":false,\"squashed_separator_string\":\"\",\"squashed_post_script_enable\":false,\"squashed_post_script\":\"\"},\"RegexBinding\":{\"regexes\":[]},\"MacroNest\":false}",
-                "injection_position": 0,
-                "injection_depth": 4,
-                "injection_order": 100,
-                "forbid_overrides": false
             }
         ],
         "prompt_order": [
@@ -3623,7 +3221,7 @@
                     },
                     {
                         "identifier": "a982ae66-fd2d-45a3-9a7f-d3579cefc0c0",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "18d3c581-b73e-43d1-982c-be0bdcb57d98",
@@ -3631,15 +3229,15 @@
                     },
                     {
                         "identifier": "8fd30006-b15e-43e7-a465-ca225d33920e",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "ea2a20fc-ea05-4c4b-a53c-e827057d6919",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "5c00c130-a55c-41da-befc-a73c3b584bfd",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "7f41cbe5-d0e1-42ac-8e9c-0461174d0000",
@@ -3663,7 +3261,7 @@
                     },
                     {
                         "identifier": "c18e7bca-77a0-454e-bb5d-ed05e5f12a05",
-                        "enabled": false
+                        "enabled": true
                     },
                     {
                         "identifier": "1a082867-8968-4529-8ac3-807b7d3e672b",
@@ -3679,7 +3277,7 @@
                     },
                     {
                         "identifier": "be37befe-23cb-4b99-a825-5c9eb5ded0e9",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "35905a8a-4820-4b82-a95c-d2b3478893d9",
@@ -3823,7 +3421,7 @@
                     },
                     {
                         "identifier": "2ee0be6c-676c-4765-bdb5-445c1771af3a",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "e2d576a8-2484-4cfc-9a2b-5b14709d4e6e",
@@ -3839,11 +3437,11 @@
                     },
                     {
                         "identifier": "0762443b-5467-43d0-80ab-2a5c7df7fd0e",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "d3511802-0429-4ad6-bad8-e6a8248471c9",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "1735f4f1-faa4-420d-8ca9-46ec0169de66",
@@ -3863,11 +3461,11 @@
                     },
                     {
                         "identifier": "c80071e9-6083-4359-8a3c-aeea2e3ef730",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "7b2bc8fb-ba25-42f6-b933-0799b840f374",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "3a3977dd-05b3-415e-8c79-c486c90107ff",
@@ -3875,7 +3473,7 @@
                     },
                     {
                         "identifier": "f93ded50-9abf-4c36-8ff9-cc73554e6cae",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "70de2301-5a85-4b04-8d3d-6c04735d04b5",
@@ -3891,7 +3489,7 @@
                     },
                     {
                         "identifier": "2d18325d-ac0f-443a-b87e-4bff5cda4621",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "cb6f2aff-71b5-41a8-9210-a81d168103fb",
@@ -3899,7 +3497,7 @@
                     },
                     {
                         "identifier": "f3dcf18e-c0c4-4ee7-afca-fb94e494d9e6",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "36c7f8ca-e969-4fff-9dab-745d41407081",
@@ -3907,7 +3505,7 @@
                     },
                     {
                         "identifier": "a12bf3c5-d294-476b-8c42-84e934c580c0",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "d2265dbe-8a7c-4f00-aa77-adfbf685ff1c",
@@ -3923,7 +3521,7 @@
                     },
                     {
                         "identifier": "10debf57-2671-4ebe-b7f8-feddc1a9da0f",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "a98a92bd-a21b-42d5-bf2c-4da7faf3a3fd",
@@ -3947,11 +3545,11 @@
                     },
                     {
                         "identifier": "32da3b68-a2ff-47c6-9760-887886ad8111",
-                        "enabled": false
+                        "enabled": true
                     },
                     {
                         "identifier": "31782cde-ee6e-4288-b101-4b6a4f1cb031",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "35425b2b-862e-49fe-8072-fe91303288c2",
@@ -3987,11 +3585,11 @@
                     },
                     {
                         "identifier": "97302c95-e7ef-4113-b503-8509a9c3b738",
-                        "enabled": false
+                        "enabled": true
                     },
                     {
                         "identifier": "8e2452a9-eb18-4232-bfbd-02523303501c",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "1a7ca5a8-3ded-452e-884f-567819f2dfec",
@@ -4015,11 +3613,11 @@
                     },
                     {
                         "identifier": "f3a9311f-470f-40f6-934c-3a9c519a13d8",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "296eb13f-06f0-4ab6-8180-460ca926cc6c",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "c356107c-7c74-493f-a3e6-7dfb7c7de00f",
@@ -4059,11 +3657,11 @@
                     },
                     {
                         "identifier": "9e2cf330-08ae-470e-9f9c-04de6249839b",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "e74c4258-414a-4a4a-bc99-aa677f86c5f1",
-                        "enabled": true
+                        "enabled": false
                     },
                     {
                         "identifier": "0ecca5f8-aa24-4e80-9a07-9cc05317e68a",
@@ -4071,7 +3669,7 @@
                     },
                     {
                         "identifier": "529b8b2b-95c1-4abd-af1c-e710db8acbec",
-                        "enabled": false
+                        "enabled": true
                     },
                     {
                         "identifier": "a06b6a4c-fa7b-48d4-99b4-a24ffb516dfe",
@@ -4244,34 +3842,8 @@
         "request_images": false,
         "seed": -1,
         "n": 1,
-        "bind_preset_to_connection": false,
-        "extensions": {
-            "regex_scripts": [],
-            "SPreset": {
-                "ChatSquash": {
-                    "enabled": false,
-                    "separate_chat_history": false,
-                    "parse_clewd": true,
-                    "role": "assistant",
-                    "stop_string": "User:",
-                    "user_prefix": "\n\nUser:",
-                    "user_suffix": "",
-                    "char_prefix": "\n\nAssistant:",
-                    "char_suffix": "",
-                    "prefix_system": "",
-                    "suffix_system": "",
-                    "enable_squashed_separator": false,
-                    "squashed_separator_regex": false,
-                    "squashed_separator_string": "",
-                    "squashed_post_script_enable": false,
-                    "squashed_post_script": ""
-                },
-                "RegexBinding": {
-                    "regexes": []
-                },
-                "MacroNest": false
-            }
-        }
+        "bind_preset_to_connection": true,
+        "extensions": {}
     },
     "background": {
         "name": "__transparent.png",

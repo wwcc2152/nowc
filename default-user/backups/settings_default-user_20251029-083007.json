@@ -513,6 +513,23 @@
                 "promptOnly": false
             },
             {
+                "id": "50a8b932-19ca-4c28-a3db-52236ed5bddd",
+                "scriptName": "［Phantasm］11.(深色美化)可点击选项",
+                "disabled": false,
+                "runOnEdit": true,
+                "findRegex": "/<choice>\\s*①(.*?)\\s*②(.*?)\\s*③(.*?)\\s*④(.*?)\\s*⑤(.*?)\\s*<\\/choice>/gs",
+                "replaceString": "```\n<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>SillyTavern Choice Menu</title>\n  <style>\n    /* 引入字体 */\n    @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap');\n\n    /* 选择框容器 */\n    .choice-container {\n      position: relative;\n      width: 100%;\n      max-width: 500px;\n      margin: 20px auto;\n      font-family: 'M PLUS Rounded 1c', 'Noto Sans SC', sans-serif;\n      color: #BEA5D6; /* 紫调文字 */\n    }\n\n    /* 切换按钮 */\n    .choice-toggle {\n      background: #2C2A4A; /* 深紫背景 */\n      border: 2px solid #8A6EAF; /* 较亮的紫色边框 */\n      padding: 14px 20px;\n      border-radius: 20px;\n      text-align: center;\n      cursor: pointer;\n      font-size: 16px;\n      font-weight: 600;\n      color: #BEA5D6; /* 紫调文字 */\n      transition: all 0.3s ease;\n      box-shadow: 0 3px 15px rgba(147, 112, 219, 0.2); /* 紫色辉光 */\n      position: relative;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n\n    .choice-toggle:hover {\n      background: #403D64; /* 稍亮的深紫hover效果 */\n      transform: scale(1.05) translateY(-3px);\n    }\n\n    .choice-toggle::before,\n    .choice-toggle::after {\n      content: '🌙'; /* 弯月 emoji */\n      font-size: 14px;\n      color: #8A6EAF;\n      position: absolute;\n      top: 50%;\n      transform: translateY(-50%);\n    }\n\n    .choice-toggle::before {\n      left: 20px; /* 靠近文本 */\n    }\n\n    .choice-toggle::after {\n      right: 20px; /* 靠近文本 */\n    }\n\n    /* 菜单容器 */\n    .choice-menu {\n      display: none;\n      background: linear-gradient(to bottom, #2C2A4A, #5B4B84); /* 深紫渐变 */\n      border: 2px solid #8A6EAF; /* 较亮的紫色边框 */\n      border-radius: 16px;\n      margin-top: 10px;\n      padding: 12px 12px 20px 12px; /* 底部增加空间 */\n      box-shadow: 0 4px 15px rgba(147, 112, 219, 0.2); /* 紫色辉光 */\n      animation: bounceIn 0.4s ease-out;\n      position: relative; /* 为星星定位 */\n    }\n\n    /* 菜单下方的星星 */\n    .choice-menu::before {\n      content: '✦'; /* 星星 */\n      position: absolute;\n      bottom: 3px; /* 拉开距离 */\n      left: 50%;\n      transform: translateX(-50%);\n      font-size: 15px;\n      color: #8A6EAF;\n      animation: starFlash 1.2s infinite;\n      z-index: 10; /* 确保不被覆盖 */\n    }\n\n    /* 菜单展开动画 */\n    @keyframes bounceIn {\n      0% {\n        opacity: 0;\n        transform: scale(0.8) translateY(-20px);\n      }\n      60% {\n        transform: scale(1.05);\n      }\n      100% {\n        opacity: 1;\n        transform: scale(1) translateY(0);\n      }\n    }\n\n    /* 菜单项 */\n    .choice-item {\n      padding: 12px 20px 12px 14px;\n      margin: 6px 0;\n      background: #2C2A4A; /* 深紫背景 */\n      border: 1px solid #8A6EAF; /* 较亮的紫色边框 */\n      border-radius: 12px;\n      cursor: pointer;\n      font-size: 16px;\n      font-weight: 500;\n      color: #BEA5D6; /* 紫调文字 */\n      transition: all 0.3s ease;\n      position: relative;\n    }\n\n    .choice-item:hover {\n      background: #403D64; /* 稍亮的深紫hover效果 */\n      border-color: #BEA5D6; /* 更亮的紫色边框 */\n      transform: translateX(8px) scale(1.03);\n    }\n\n    /* 星星闪烁变色动画 */\n    @keyframes starFlash {\n      0%, 100% {\n        color: #8A6EAF;\n      }\n      70% {\n        color: #DFDFFB; /* 更亮的淡紫色，增加对比 */\n      }\n    }\n\n    /* 响应式设计 */\n    @media (max-width: 600px) {\n      .choice-container {\n        max-width: 90%;\n      }\n\n      .choice-toggle {\n        font-size: 14px;\n        padding: 12px 15px;\n      }\n\n      .choice-item {\n        font-size: 13px;\n        padding: 10px 15px;\n      }\n\n      .choice-toggle::before,\n      .choice-toggle::after,\n      .choice-menu::before {\n        font-size: 12px;\n      }\n\n      .choice-toggle::before {\n        left: 15px;\n      }\n\n      .choice-toggle::after {\n        right: 15px;\n      }\n\n      .choice-menu::before {\n        bottom: 4px; /* 移动端调整星星位置 */\n      }\n    }\n\n    /* 菜单展开时的样式 */\n    .choice-menu.active {\n      display: block;\n    }\n  </style>\n</head>\n<body>\n  <!-- SillyTavern 将替换 <choice> 为以下结构，$1 到 $5 为外部正则捕获内容 -->\n  <div class=\"choice-container\">\n    <div class=\"choice-toggle\">选择你的行动吧~♫</div>\n    <div class=\"choice-menu\">\n      <div class=\"choice-item\" data-choice=\"$1\">$1</div>\n      <div class=\"choice-item\" data-choice=\"$2\">$2</div>\n      <div class=\"choice-item\" data-choice=\"$3\">$3</div>\n      <div class=\"choice-item\" data-choice=\"$4\">$4</div>\n      <div class=\"choice-item\" data-choice=\"$5\">$5</div>\n    </div>\n  </div>\n\n  <script>\n    // 添加交互逻辑\n    document.querySelectorAll('.choice-toggle').forEach(toggle => {\n      toggle.addEventListener('click', () => {\n        const menu = toggle.nextElementSibling;\n        menu.classList.toggle('active');\n      });\n    });\n\n    document.querySelectorAll('.choice-item').forEach(item => {\n      item.addEventListener('click', async () => {\n        const choiceText = item.getAttribute('data-choice');\n        await triggerSlash(`/setinput ${choiceText}`);\n        // 隐藏菜单\n        item.parentElement.classList.remove('active');\n      });\n    });\n  </script>\n</body>\n</html>\n```",
+                "trimStrings": [],
+                "placement": [
+                    2
+                ],
+                "substituteRegex": 0,
+                "minDepth": null,
+                "maxDepth": null,
+                "markdownOnly": true,
+                "promptOnly": false
+            },
+            {
                 "id": "f5b4ecab-dc2b-4984-a8dc-349d1cd21489",
                 "scriptName": "［Phantasm］11.选项(折叠)",
                 "disabled": true,
@@ -545,40 +562,6 @@
                 "maxDepth": null,
                 "markdownOnly": false,
                 "promptOnly": true
-            },
-            {
-                "id": "9b06fab4-5779-4b44-b248-d3ce1a6a1c1c",
-                "scriptName": "【Phantasm】5.(防外审用)去除敏感标签",
-                "disabled": true,
-                "runOnEdit": true,
-                "findRegex": "/<safe>|</safe>/g",
-                "replaceString": "",
-                "trimStrings": [],
-                "placement": [
-                    2
-                ],
-                "substituteRegex": 0,
-                "minDepth": null,
-                "maxDepth": null,
-                "markdownOnly": true,
-                "promptOnly": true
-            },
-            {
-                "id": "50a8b932-19ca-4c28-a3db-52236ed5bddd",
-                "scriptName": "［Phantasm］11.(深色美化)可点击选项",
-                "disabled": false,
-                "runOnEdit": true,
-                "findRegex": "/<choice>\\s*①(.*?)\\s*②(.*?)\\s*③(.*?)\\s*④(.*?)\\s*⑤(.*?)\\s*<\\/choice>/gs",
-                "replaceString": "```\n<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>SillyTavern Choice Menu</title>\n  <style>\n    /* 引入字体 */\n    @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap');\n\n    /* 选择框容器 */\n    .choice-container {\n      position: relative;\n      width: 100%;\n      max-width: 500px;\n      margin: 20px auto;\n      font-family: 'M PLUS Rounded 1c', 'Noto Sans SC', sans-serif;\n      color: #BEA5D6; /* 紫调文字 */\n    }\n\n    /* 切换按钮 */\n    .choice-toggle {\n      background: #2C2A4A; /* 深紫背景 */\n      border: 2px solid #8A6EAF; /* 较亮的紫色边框 */\n      padding: 14px 20px;\n      border-radius: 20px;\n      text-align: center;\n      cursor: pointer;\n      font-size: 16px;\n      font-weight: 600;\n      color: #BEA5D6; /* 紫调文字 */\n      transition: all 0.3s ease;\n      box-shadow: 0 3px 15px rgba(147, 112, 219, 0.2); /* 紫色辉光 */\n      position: relative;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n\n    .choice-toggle:hover {\n      background: #403D64; /* 稍亮的深紫hover效果 */\n      transform: scale(1.05) translateY(-3px);\n    }\n\n    .choice-toggle::before,\n    .choice-toggle::after {\n      content: '🌙'; /* 弯月 emoji */\n      font-size: 14px;\n      color: #8A6EAF;\n      position: absolute;\n      top: 50%;\n      transform: translateY(-50%);\n    }\n\n    .choice-toggle::before {\n      left: 20px; /* 靠近文本 */\n    }\n\n    .choice-toggle::after {\n      right: 20px; /* 靠近文本 */\n    }\n\n    /* 菜单容器 */\n    .choice-menu {\n      display: none;\n      background: linear-gradient(to bottom, #2C2A4A, #5B4B84); /* 深紫渐变 */\n      border: 2px solid #8A6EAF; /* 较亮的紫色边框 */\n      border-radius: 16px;\n      margin-top: 10px;\n      padding: 12px 12px 20px 12px; /* 底部增加空间 */\n      box-shadow: 0 4px 15px rgba(147, 112, 219, 0.2); /* 紫色辉光 */\n      animation: bounceIn 0.4s ease-out;\n      position: relative; /* 为星星定位 */\n    }\n\n    /* 菜单下方的星星 */\n    .choice-menu::before {\n      content: '✦'; /* 星星 */\n      position: absolute;\n      bottom: 3px; /* 拉开距离 */\n      left: 50%;\n      transform: translateX(-50%);\n      font-size: 15px;\n      color: #8A6EAF;\n      animation: starFlash 1.2s infinite;\n      z-index: 10; /* 确保不被覆盖 */\n    }\n\n    /* 菜单展开动画 */\n    @keyframes bounceIn {\n      0% {\n        opacity: 0;\n        transform: scale(0.8) translateY(-20px);\n      }\n      60% {\n        transform: scale(1.05);\n      }\n      100% {\n        opacity: 1;\n        transform: scale(1) translateY(0);\n      }\n    }\n\n    /* 菜单项 */\n    .choice-item {\n      padding: 12px 20px 12px 14px;\n      margin: 6px 0;\n      background: #2C2A4A; /* 深紫背景 */\n      border: 1px solid #8A6EAF; /* 较亮的紫色边框 */\n      border-radius: 12px;\n      cursor: pointer;\n      font-size: 16px;\n      font-weight: 500;\n      color: #BEA5D6; /* 紫调文字 */\n      transition: all 0.3s ease;\n      position: relative;\n    }\n\n    .choice-item:hover {\n      background: #403D64; /* 稍亮的深紫hover效果 */\n      border-color: #BEA5D6; /* 更亮的紫色边框 */\n      transform: translateX(8px) scale(1.03);\n    }\n\n    /* 星星闪烁变色动画 */\n    @keyframes starFlash {\n      0%, 100% {\n        color: #8A6EAF;\n      }\n      70% {\n        color: #DFDFFB; /* 更亮的淡紫色，增加对比 */\n      }\n    }\n\n    /* 响应式设计 */\n    @media (max-width: 600px) {\n      .choice-container {\n        max-width: 90%;\n      }\n\n      .choice-toggle {\n        font-size: 14px;\n        padding: 12px 15px;\n      }\n\n      .choice-item {\n        font-size: 13px;\n        padding: 10px 15px;\n      }\n\n      .choice-toggle::before,\n      .choice-toggle::after,\n      .choice-menu::before {\n        font-size: 12px;\n      }\n\n      .choice-toggle::before {\n        left: 15px;\n      }\n\n      .choice-toggle::after {\n        right: 15px;\n      }\n\n      .choice-menu::before {\n        bottom: 4px; /* 移动端调整星星位置 */\n      }\n    }\n\n    /* 菜单展开时的样式 */\n    .choice-menu.active {\n      display: block;\n    }\n  </style>\n</head>\n<body>\n  <!-- SillyTavern 将替换 <choice> 为以下结构，$1 到 $5 为外部正则捕获内容 -->\n  <div class=\"choice-container\">\n    <div class=\"choice-toggle\">选择你的行动吧~♫</div>\n    <div class=\"choice-menu\">\n      <div class=\"choice-item\" data-choice=\"$1\">$1</div>\n      <div class=\"choice-item\" data-choice=\"$2\">$2</div>\n      <div class=\"choice-item\" data-choice=\"$3\">$3</div>\n      <div class=\"choice-item\" data-choice=\"$4\">$4</div>\n      <div class=\"choice-item\" data-choice=\"$5\">$5</div>\n    </div>\n  </div>\n\n  <script>\n    // 添加交互逻辑\n    document.querySelectorAll('.choice-toggle').forEach(toggle => {\n      toggle.addEventListener('click', () => {\n        const menu = toggle.nextElementSibling;\n        menu.classList.toggle('active');\n      });\n    });\n\n    document.querySelectorAll('.choice-item').forEach(item => {\n      item.addEventListener('click', async () => {\n        const choiceText = item.getAttribute('data-choice');\n        await triggerSlash(`/setinput ${choiceText}`);\n        // 隐藏菜单\n        item.parentElement.classList.remove('active');\n      });\n    });\n  </script>\n</body>\n</html>\n```",
-                "trimStrings": [],
-                "placement": [
-                    2
-                ],
-                "substituteRegex": 0,
-                "minDepth": null,
-                "maxDepth": null,
-                "markdownOnly": true,
-                "promptOnly": false
             },
             {
                 "id": "d41df0be-8bad-455b-8464-c6b613ba0fa3",
@@ -666,6 +649,23 @@
                 "promptOnly": true
             },
             {
+                "id": "9b06fab4-5779-4b44-b248-d3ce1a6a1c1c",
+                "scriptName": "【Phantasm】5.(防外审用)去除敏感标签",
+                "disabled": true,
+                "runOnEdit": true,
+                "findRegex": "/<safe>|</safe>/g",
+                "replaceString": "",
+                "trimStrings": [],
+                "placement": [
+                    2
+                ],
+                "substituteRegex": 0,
+                "minDepth": null,
+                "maxDepth": null,
+                "markdownOnly": true,
+                "promptOnly": true
+            },
+            {
                 "id": "df968b57-87cb-4399-ae1e-376f4e0ad3c6",
                 "scriptName": "【Phantasm】6.叙事系统(折叠)",
                 "disabled": false,
@@ -734,47 +734,7 @@
                 "promptOnly": true
             }
         ],
-        "regex_presets": [
-            {
-                "id": "c056c90d-4e5d-4682-8bf6-9157caca1117",
-                "name": "nowc",
-                "isSelected": true,
-                "global": [
-                    {
-                        "id": "50a8b932-19ca-4c28-a3db-52236ed5bddd"
-                    },
-                    {
-                        "id": "d41df0be-8bad-455b-8464-c6b613ba0fa3"
-                    },
-                    {
-                        "id": "1ddf23ca-9399-4768-9156-9383cd3b33ee"
-                    },
-                    {
-                        "id": "8c269b76-e4e1-4b2d-94db-1c79822f6fee"
-                    },
-                    {
-                        "id": "484dfa72-7be6-4efc-98ef-90df4cb2ee9c"
-                    },
-                    {
-                        "id": "82281914-1c51-4090-a1ab-7be72e52568d"
-                    },
-                    {
-                        "id": "df968b57-87cb-4399-ae1e-376f4e0ad3c6"
-                    },
-                    {
-                        "id": "e1070276-b568-4181-bdc6-ce3e4f2ed26a"
-                    },
-                    {
-                        "id": "1fe18f6a-7e9b-4170-a251-9995229b331c"
-                    },
-                    {
-                        "id": "d9fb6a1c-bd04-43c4-acb6-95cb85067664"
-                    }
-                ],
-                "scoped": [],
-                "preset": []
-            }
-        ],
+        "regex_presets": [],
         "character_allowed_regex": [
             "红楼.png"
         ],
@@ -1077,27 +1037,7 @@
                 ]
             }
         },
-        "regexBinding_scriptId": "a903dbbd-a45c-4150-b951-84d52730940f",
-        "EjsTemplate": {
-            "enabled": true,
-            "generate_enabled": true,
-            "generate_loader_enabled": true,
-            "render_enabled": true,
-            "render_loader_enabled": true,
-            "with_context_disabled": false,
-            "debug_enabled": false,
-            "autosave_enabled": false,
-            "preload_worldinfo_enabled": true,
-            "code_blocks_enabled": true,
-            "raw_message_evaluation_enabled": true,
-            "filter_message_enabled": true,
-            "cache_enabled": 0,
-            "cache_size": 64,
-            "cache_hasher": "h32ToString",
-            "inject_loader_enabled": false,
-            "invert_enabled": true,
-            "depth_limit": -1
-        }
+        "regexBinding_scriptId": "a903dbbd-a45c-4150-b951-84d52730940f"
     },
     "tags": [
         {
@@ -4244,7 +4184,7 @@
         "request_images": false,
         "seed": -1,
         "n": 1,
-        "bind_preset_to_connection": false,
+        "bind_preset_to_connection": true,
         "extensions": {
             "regex_scripts": [],
             "SPreset": {
