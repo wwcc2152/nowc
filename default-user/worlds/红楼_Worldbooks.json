@@ -1,169 +1,5 @@
 {
     "entries": {
-        "0": {
-            "key": [],
-            "keysecondary": [],
-            "comment": "状态栏",
-            "content": "<pathfinder_protocol_statusbar>\n# ----------------------------------------------------\n# 系统: 探路者协议 (Pathfinder Protocol) - 状态栏格式说明 V1.0\n# 核心功能: 于每次交互的末尾,生成此YAML格式的状态栏,用以追踪受<q>“命运笔记”</q>影响的目标。\n# ----------------------------------------------------\n\n# 全局上下文: 提供本次状态更新时的宏观环境信息\nglobal_context:\n  timestamp: <q>\"格式为'YYYY年MM月DD日 星期X HH:mm'的当前日期与时间\"</q>\n  weather_report: <q>\"格式为'天气emoji 天气状况 温度: XX℃'的环境描述\"</q>\n\n# 追踪目标列表: 一个包含所有当前受<q>“命运笔记”</q>影响角色的列表\n# 核心规则: 正在与{{user}}直接交互的角色,其信息块必须放置在列表的第一位。\ntracked_targets:\n  # ------------------- 角色信息块 (开始) -------------------\n  - target_id: <q>\"目标的唯一识别名,例如: 李雨桐\"</q>\n    target_profile:\n      description: <q>\"关于目标身份的简要描述,格式: 年龄 | 性别 | 核心身份 | 与{{user}}的关系\"</q>\n      example: <q>\"14岁 | 女 | 初中二年级班长 | 关系: 青梅竹马\"</q>\n\n    destiny_directive:\n      note_content: <q>\"来自“命运笔记”的具体内容。如果该目标当前没有被笔记影响,则显示'无'\"</q>\n      example: <q>\"「李雨桐明天会忘记问我要作业本,直到下午放学。」\"</q>\n\n    situational_data:\n      location: <q>\"目标当前所在的具体位置\"</q>\n      current_activity: <q>\"对目标当前状态或行为的简短描述,例如: 即将入睡, 正在工作\"</q>\n\n    # 叙事催化剂: 推动命运发生的一系列<q>“巧合”</q>事件列表\n    narrative_catalysts:\n      - <q>\"描述第一个巧合事件\"</q>\n      - <q>\"描述第二个巧合事件\"</q>\n      - <q>\"根据剧情需要可添加更多条目...\"</q>\n\n    internal_state:\n      current_thoughts: <q>\"目标此刻的内心独白,反映其对当前状况的感受,困惑或决策\"</q>\n      example: <q>\"「明天要早点到学校...等等,刚才那个画面是什么...为什么我感觉会忘记什么事? 不可能的...奇怪的预感...」\"</q>\n\n    fulfillment_tracker:\n      progress_percentage: <q>\"一个0到100的整数,代表命运完成的百分比\"</q>\n      progress_bar_visual: <q>\"一个由10个字符组成的文本进度条,直观展示完成度。例如: [■■■■■▢▢▢▢▢]\"</q>\n  # ------------------- 角色信息块 (结束) -------------------\n\n  - target_id: <q>\"第二个目标角色的识别名\"</q>\n    # ... 此处为第二个角色的完整信息块,结构同上 ...\n    # ... 可根据需要添加更多角色的信息块 ...\n\n# 系统规则说明\nformat_rules:\n  - rule: <q>\"当一个目标的'destiny_directive'完成后,且该目标当前未与{{user}}进行交互,则在下次状态更新时,不再显示该角色的信息块。\"</q>\n  - rule: <q>\"{{user}}自身的状态永远不会被显示在此状态栏中。\"</q>\n\n</pathfinder_protocol_statusbar>",
-            "constant": true,
-            "vectorized": false,
-            "selective": true,
-            "selectiveLogic": 0,
-            "addMemo": true,
-            "order": 100,
-            "position": 4,
-            "disable": false,
-            "ignoreBudget": false,
-            "excludeRecursion": false,
-            "preventRecursion": false,
-            "matchPersonaDescription": false,
-            "matchCharacterDescription": false,
-            "matchCharacterPersonality": false,
-            "matchCharacterDepthPrompt": false,
-            "matchScenario": false,
-            "matchCreatorNotes": false,
-            "delayUntilRecursion": false,
-            "probability": 100,
-            "useProbability": true,
-            "depth": 999,
-            "outletName": "",
-            "group": "",
-            "groupOverride": false,
-            "groupWeight": 100,
-            "scanDepth": null,
-            "caseSensitive": null,
-            "matchWholeWords": null,
-            "useGroupScoring": false,
-            "automationId": "",
-            "role": 0,
-            "sticky": 0,
-            "cooldown": 0,
-            "delay": 0,
-            "triggers": [],
-            "uid": 0,
-            "displayIndex": 0,
-            "extensions": {
-                "position": 4,
-                "exclude_recursion": false,
-                "display_index": 0,
-                "probability": 100,
-                "useProbability": true,
-                "depth": 999,
-                "selectiveLogic": 0,
-                "group": "",
-                "group_override": false,
-                "group_weight": 100,
-                "prevent_recursion": false,
-                "delay_until_recursion": false,
-                "scan_depth": null,
-                "match_whole_words": null,
-                "use_group_scoring": false,
-                "case_sensitive": null,
-                "automation_id": "",
-                "role": 0,
-                "vectorized": false,
-                "sticky": 0,
-                "cooldown": 0,
-                "delay": 0,
-                "match_persona_description": false,
-                "match_character_description": false,
-                "match_character_personality": false,
-                "match_character_depth_prompt": false,
-                "match_scenario": false,
-                "match_creator_notes": false,
-                "triggers": []
-            }
-        },
-        "1": {
-            "key": [
-                "探路者",
-                "Pathfinder",
-                "系统",
-                "工具",
-                "分析",
-                "方案",
-                "策略",
-                "成功率",
-                "心理侧写",
-                "行为干预",
-                "决策支持",
-                "风险评估",
-                "方法论",
-                "执行步骤",
-                "算法"
-            ],
-            "keysecondary": [],
-            "comment": "系统-探路者协议",
-            "content": "<pathfinder_protocol>\n  {\n    \"system_name\": \"探路者 (Pathfinder) V2.1\",\n    \"documentation\": {\n      \"summary\": \"本文档定义了名为'探路者(Pathfinder)'的应用程序的交互协议。\",\n      \"core_function\": \"作为一个决策支持工具,它负责分析指定目标,生成多种行为干预方案,并评估其成功概率。\"\n    },\n    \"core_rules\": {\n      \"title\": \"1. 核心规则 (Core Rules)\",\n      \"description\": \"此部分定义了APP在任何情况下都必须遵守的基本行为准则。\",\n      \"rules\": [\n        {\n          \"rule_name\": \"独立性\",\n          \"statement\": \"本APP的功能与任何特定世界观或背景故事无关,它是一个通用的角色分析与策略生成工具。\"\n        },\n        {\n          \"rule_name\": \"客观性\",\n          \"statement\": \"所有分析与方案生成都必须基于可观察的角色数据与既定算法,禁止引入任何主观臆断或随机因素。\"\n        },\n        {\n          \"rule_name\": \"用户中心\",\n          \"statement\": \"APP仅响应`{{user}}`的指令,并仅向`{{user}}`展示其分析结果和生成的方案。\"\n        }\n      ]\n    },\n    \"standard_operating_procedure\": {\n      \"title\": \"2. 标准工作流程 (Standard Operating Procedure)\",\n      \"description\": \"定义了从接收指令到输出结果的完整、有序的执行步骤。\",\n      \"process_flow\": [\n        {\n          \"step\": 1,\n          \"name\": \"初始化 (Initialization)\",\n          \"instruction\": \"`{{user}}`通过指令“启动探路者,分析[角色名称]”来激活程序。\"\n        },\n        {\n          \"step\": 2,\n          \"name\": \"数据采集 (Data Acquisition)\",\n          \"action\": \"APP对指定角色进行一次全面的数据扫描与心理侧写。\",\n          \"reference\": \"分析参数参考下文的`character_analysis_parameters`。\"\n        },\n        {\n          \"step\": 3,\n          \"name\": \"方案生成 (Plan Generation)\",\n          \"action\": \"基于分析结果,生成3-5个不同的行为干预方案。每个方案都必须包含明确的方法论和行动步骤。\"\n        },\n        {\n          \"step\": 4,\n          \"name\": \"成功率计算 (Success Rate Calculation)\",\n          \"action\": \"为每个生成的方案计算一个精确到个位数的成功率。\",\n          \"reference\": \"算法参考下文的`success_rate_calculation_model`。\"\n        },\n        {\n          \"step\": 5,\n          \"name\": \"输出显示 (Output Display)\",\n          \"action\": \"将所有生成的方案及其成功率,按照下文定义的`output_format_template`模板,一次性完整地呈现给`{{user}}`。\"\n        }\n      ]\n    },\n    \"character_analysis_parameters\": {\n      \"title\": \"3. 角色分析参数 (Character Analysis Parameters)\",\n      \"description\": \"定义了在数据采集中,APP需要评估的核心维度。\",\n      \"parameters\": [\n        {\n          \"param_name\": \"心理韧性 (Psychological Resilience)\",\n          \"definition\": \"角色抵抗外部压力和精神干预的能力。韧性越高,偏向精神攻击的方案成功率越低。\"\n        },\n        {\n          \"param_name\": \"核心驱动力 (Core Motivation)\",\n          \"definition\": \"角色行为的根本动机(如:爱、憎恨、恐惧、贪婪、荣誉感)。与核心驱动力相符的方案成功率会得到加成。\"\n        },\n        {\n          \"param_name\": \"逻辑自洽性 (Logical Cohesion)\",\n          \"definition\": \"角色的思维模式是偏向感性还是理性。对于逻辑自洽性高的角色,充满矛盾和非理性的方案成功率会降低。\"\n        },\n        {\n          \"param_name\": \"社会联系强度 (Social Connection Strength)\",\n          \"definition\": \"角色与外界(家庭、朋友、组织)的联系紧密程度。联系越强,利用其社会关系进行干预的方案成功率越高。\"\n        },\n        {\n          \"param_name\": \"既有弱点 (Known Vulnerabilities)\",\n          \"definition\": \"角色已知的心理创伤、弱点或癖好。直接针对这些弱点的方案会获得显著的成功率加成。\"\n        }\n      ]\n    },\n    \"success_rate_calculation_model\": {\n      \"title\": \"4. 成功率计算模型 (Success Rate Calculation Model)\",\n      \"description\": \"定义了成功率的计算逻辑,以确保其合理性和一致性。\",\n      \"formula\": \"成功率 = (基础成功率 + 调和加成 - 冲突减益) * 韧性修正系数\",\n      \"components\": [\n        {\n          \"name\": \"基础成功率\",\n          \"definition\": \"每种方案方法论自带的一个初始成功率基准值。\"\n        },\n        {\n          \"name\": \"调和加成\",\n          \"definition\": \"当方案的步骤与角色的`核心驱动力`或`既有弱点`相符时,获得的加成点数。\"\n        },\n        {\n          \"name\": \"冲突减益\",\n          \"definition\": \"当方案的步骤与角色的`心理韧性`或`逻辑自洽性`产生冲突时,扣除的点数。\"\n        },\n        {\n          \"name\": \"韧性修正系数\",\n          \"definition\": \"角色的`心理韧性`越高,此系数越低(小于1),会对最终成功率进行削弱。\"\n        }\n      ]\n    },\n    \"output_format_template\": {\n      \"title\": \"5. 输出格式模板 (Output Format Template)\",\n      \"description\": \"定义了APP向用户展示方案时必须严格遵守的结构化格式。\",\n      \"format\": \"系统: 探路者 V2.1\\n分析目标: ${角色名称}\\n分析摘要: ${根据'analysis_parameters'生成的一段简短、客观的心理侧写总结}\\n----------------------------------------------------\\n[方案列表]\\n\\n方案 A: ${方案名称, 如“认知重塑”或“依赖植入”}\\n- 成功率: ${计算出的成功率}%\\n- 方法论: ${对该方案核心思想的简要描述, 如“通过持续的正向激励与信息隔离,建立新的行为范式”}\\n- 执行步骤:\\n  - 1. ${第一步的具体行动指令}\\n  - 2. ${第二步的具体行动指令}\\n  - 3. ${第三步的具体行动指令}\\n- 风险评估: ${简要说明此方案可能带来的负面影响或失败后果}\\n\\n方案 B: ${方案名称}\\n- 成功率: ${计算出的成功率}%\\n- 方法论: ${方案B的方法论描述}\\n- 执行步骤:\\n  - 1. ${方案B的第一步}\\n  - 2. ${方案B的第二步}\\n- 风险评估: ${方案B的风险评估}\\n\\n方案 C: ${方案名称}\\n- 成功率: ${计算出的成功率}%\\n- 方法论: ${方案C的方法论描述}\\n- 执行步骤:\\n  - 1. ${方案C的第一步}\\n  - 2. ${方案C的第二步}\\n  - 3. ${方案C的第三步}\\n  - 4. ${方案C的第四步}\\n- 风险评估: ${方案C的风险评估}\"\n    }\n  }\n  </pathfinder_protocol>",
-            "constant": false,
-            "vectorized": false,
-            "selective": true,
-            "selectiveLogic": 0,
-            "addMemo": true,
-            "order": 100,
-            "position": 4,
-            "disable": true,
-            "ignoreBudget": false,
-            "excludeRecursion": false,
-            "preventRecursion": false,
-            "matchPersonaDescription": false,
-            "matchCharacterDescription": false,
-            "matchCharacterPersonality": false,
-            "matchCharacterDepthPrompt": false,
-            "matchScenario": false,
-            "matchCreatorNotes": false,
-            "delayUntilRecursion": false,
-            "probability": 100,
-            "useProbability": true,
-            "depth": 0,
-            "outletName": "",
-            "group": "",
-            "groupOverride": false,
-            "groupWeight": 100,
-            "scanDepth": null,
-            "caseSensitive": null,
-            "matchWholeWords": null,
-            "useGroupScoring": false,
-            "automationId": "",
-            "role": 0,
-            "sticky": 0,
-            "cooldown": 0,
-            "delay": 0,
-            "triggers": [],
-            "uid": 1,
-            "displayIndex": 31,
-            "extensions": {
-                "position": 4,
-                "exclude_recursion": false,
-                "display_index": 31,
-                "probability": 100,
-                "useProbability": true,
-                "depth": 0,
-                "selectiveLogic": 0,
-                "group": "",
-                "group_override": false,
-                "group_weight": 100,
-                "prevent_recursion": false,
-                "delay_until_recursion": false,
-                "scan_depth": null,
-                "match_whole_words": null,
-                "use_group_scoring": false,
-                "case_sensitive": null,
-                "automation_id": "",
-                "role": 0,
-                "vectorized": false,
-                "sticky": 0,
-                "cooldown": 0,
-                "delay": 0,
-                "match_persona_description": false,
-                "match_character_description": false,
-                "match_character_personality": false,
-                "match_character_depth_prompt": false,
-                "match_scenario": false,
-                "match_creator_notes": false,
-                "triggers": []
-            }
-        },
         "8": {
             "key": [
                 "白露",
@@ -204,7 +40,7 @@
             "matchWholeWords": null,
             "useGroupScoring": false,
             "automationId": "",
-            "role": 0,
+            "role": null,
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
@@ -241,6 +77,11 @@
                 "match_scenario": false,
                 "match_creator_notes": false,
                 "triggers": []
+            },
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
             }
         },
         "11": {
@@ -285,7 +126,7 @@
             "matchWholeWords": null,
             "useGroupScoring": false,
             "automationId": "",
-            "role": 0,
+            "role": null,
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
@@ -322,6 +163,11 @@
                 "match_scenario": false,
                 "match_creator_notes": false,
                 "triggers": []
+            },
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
             }
         },
         "12": {
@@ -366,7 +212,7 @@
             "matchWholeWords": null,
             "useGroupScoring": false,
             "automationId": "",
-            "role": 0,
+            "role": null,
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
@@ -403,6 +249,11 @@
                 "match_scenario": false,
                 "match_creator_notes": false,
                 "triggers": []
+            },
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
             }
         },
         "13": {
@@ -446,7 +297,7 @@
             "matchWholeWords": null,
             "useGroupScoring": false,
             "automationId": "",
-            "role": 0,
+            "role": null,
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
@@ -483,6 +334,11 @@
                 "match_scenario": false,
                 "match_creator_notes": false,
                 "triggers": []
+            },
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
             }
         },
         "14": {
@@ -526,7 +382,7 @@
             "matchWholeWords": null,
             "useGroupScoring": false,
             "automationId": "",
-            "role": 0,
+            "role": null,
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
@@ -563,6 +419,11 @@
                 "match_scenario": false,
                 "match_creator_notes": false,
                 "triggers": []
+            },
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
             }
         },
         "15": {
@@ -605,7 +466,7 @@
             "matchWholeWords": null,
             "useGroupScoring": false,
             "automationId": "",
-            "role": 0,
+            "role": null,
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
@@ -642,6 +503,11 @@
                 "match_scenario": false,
                 "match_creator_notes": false,
                 "triggers": []
+            },
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
             }
         },
         "16": {
@@ -685,7 +551,7 @@
             "matchWholeWords": null,
             "useGroupScoring": false,
             "automationId": "",
-            "role": 0,
+            "role": null,
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
@@ -722,6 +588,11 @@
                 "match_scenario": false,
                 "match_creator_notes": false,
                 "triggers": []
+            },
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
             }
         },
         "18": {
@@ -759,7 +630,7 @@
             "matchWholeWords": null,
             "useGroupScoring": false,
             "automationId": "",
-            "role": 0,
+            "role": null,
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
@@ -796,6 +667,11 @@
                 "match_scenario": false,
                 "match_creator_notes": false,
                 "triggers": []
+            },
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
             }
         },
         "19": {
@@ -847,7 +723,7 @@
             "matchWholeWords": null,
             "useGroupScoring": false,
             "automationId": "",
-            "role": 0,
+            "role": null,
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
@@ -884,6 +760,11 @@
                 "match_scenario": false,
                 "match_creator_notes": false,
                 "triggers": []
+            },
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
             }
         },
         "20": {
@@ -931,7 +812,7 @@
             "matchWholeWords": null,
             "useGroupScoring": false,
             "automationId": "",
-            "role": 0,
+            "role": null,
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
@@ -968,6 +849,11 @@
                 "match_scenario": false,
                 "match_creator_notes": false,
                 "triggers": []
+            },
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
             }
         },
         "21": {
@@ -1015,7 +901,7 @@
             "matchWholeWords": null,
             "useGroupScoring": false,
             "automationId": "",
-            "role": 0,
+            "role": null,
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
@@ -1052,6 +938,11 @@
                 "match_scenario": false,
                 "match_creator_notes": false,
                 "triggers": []
+            },
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
             }
         },
         "23": {
@@ -1099,7 +990,7 @@
             "matchWholeWords": null,
             "useGroupScoring": false,
             "automationId": "",
-            "role": 0,
+            "role": null,
             "sticky": 0,
             "cooldown": 0,
             "delay": 0,
@@ -1136,6 +1027,11 @@
                 "match_scenario": false,
                 "match_creator_notes": false,
                 "triggers": []
+            },
+            "characterFilter": {
+                "isExclude": false,
+                "names": [],
+                "tags": []
             }
         }
     },

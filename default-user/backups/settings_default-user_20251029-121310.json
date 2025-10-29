@@ -21,8 +21,7 @@
         "world_info": {
             "globalSelect": [
                 "！！Table_v2.0.11",
-                "《🐟椰果鱼哈基米调教计划2.0》",
-                "命运笔记"
+                "《🐟椰果鱼哈基米调教计划2.0》"
             ]
         },
         "world_info_depth": 2,
@@ -2554,10 +2553,10 @@
         "vectors": {},
         "variables": {
             "global": {
-                "LAST_RECEIVE_TOKENS": 5849,
-                "LAST_RECEIVE_CHARS": 10589,
-                "LAST_SEND_TOKENS": 46858,
-                "LAST_SEND_CHARS": 92684
+                "LAST_RECEIVE_TOKENS": 4644,
+                "LAST_RECEIVE_CHARS": 8881,
+                "LAST_SEND_TOKENS": 45635,
+                "LAST_SEND_CHARS": 91576
             }
         },
         "attachments": [],
